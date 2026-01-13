@@ -1,0 +1,176 @@
+{
+  "name": "project-management-app",
+  "version": "2.1.0",
+  "description": "Modern project management application with enhanced security and performance",
+  "main": "dist/index.js",
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint . --ext .ts,.tsx,.js,.jsx --fix",
+    "lint:check": "eslint . --ext .ts,.tsx,.js,.jsx",
+    "type-check": "tsc --noEmit",
+    "test": "jest",
+    "test:coverage": "jest --coverage",
+    "test:watch": "jest --watch",
+    "e2e": "playwright test",
+    "e2e:ui": "playwright test --ui",
+    "security:audit": "npm audit --audit-level=moderate",
+    "security:check": "snyk test",
+    "docker:build": "docker build -t project-app .",
+    "docker:dev": "docker-compose -f docker-compose.dev.yml up",
+    "migrations:up": "knex migrate:latest",
+    "migrations:down": "knex migrate:rollback",
+    "seed": "knex seed:run"
+  },
+  "dependencies": {
+    "@auth0/nextjs-auth0": "^3.5.0",
+    "@headlessui/react": "^1.7.18",
+    "@heroicons/react": "^2.0.18",
+    "@hookform/resolvers": "^3.3.4",
+    "@next/bundle-analyzer": "^14.1.0",
+    "@prisma/client": "^5.9.1",
+    "@radix-ui/react-avatar": "^1.0.4",
+    "@radix-ui/react-checkbox": "^1.0.4",
+    "@radix-ui/react-dialog": "^1.0.5",
+    "@radix-ui/react-dropdown-menu": "^2.0.6",
+    "@radix-ui/react-label": "^2.0.2",
+    "@radix-ui/react-popover": "^1.0.7",
+    "@radix-ui/react-select": "^2.0.0",
+    "@radix-ui/react-separator": "^1.0.3",
+    "@radix-ui/react-slot": "^1.0.2",
+    "@radix-ui/react-tabs": "^1.0.4",
+    "@radix-ui/react-toast": "^1.1.5",
+    "@radix-ui/react-tooltip": "^1.0.7",
+    "@tanstack/react-query": "^5.25.0",
+    "@tanstack/react-table": "^8.11.8",
+    "@vercel/analytics": "^1.1.2",
+    "@vercel/speed-insights": "^1.0.9",
+    "bcryptjs": "^2.4.3",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.0",
+    "cmdk": "^0.2.1",
+    "date-fns": "^3.3.1",
+    "framer-motion": "^11.0.6",
+    "jsonwebtoken": "^9.0.2",
+    "lucide-react": "^0.344.0",
+    "next": "^14.1.0",
+    "next-themes": "^0.2.1",
+    "nodemailer": "^6.9.9",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-hook-form": "^7.50.1",
+    "react-hot-toast": "^2.4.1",
+    "redis": "^4.6.12",
+    "sharp": "^0.33.2",
+    "socket.io": "^4.7.4",
+    "socket.io-client": "^4.7.4",
+    "tailwind-merge": "^2.2.1",
+    "tailwindcss-animate": "^1.0.7",
+    "uuid": "^9.0.1",
+    "zod": "^3.22.4",
+    "zustand": "^4.5.1"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.42.1",
+    "@testing-library/jest-dom": "^6.4.2",
+    "@testing-library/react": "^14.2.1",
+    "@testing-library/user-event": "^14.5.2",
+    "@types/bcryptjs": "^2.4.6",
+    "@types/jest": "^29.5.12",
+    "@types/jsonwebtoken": "^9.0.5",
+    "@types/node": "^20.11.20",
+    "@types/nodemailer": "^6.4.14",
+    "@types/react": "^18.2.58",
+    "@types/react-dom": "^18.2.19",
+    "@types/uuid": "^9.0.8",
+    "@typescript-eslint/eslint-plugin": "^7.1.0",
+    "@typescript-eslint/parser": "^7.1.0",
+    "autoprefixer": "^10.4.17",
+    "eslint": "^8.57.0",
+    "eslint-config-next": "^14.1.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-jsx-a11y": "^6.8.0",
+    "eslint-plugin-playwright": "^1.5.2",
+    "eslint-plugin-prettier": "^5.1.3",
+    "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-security": "^2.1.1",
+    "husky": "^9.0.11",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
+    "lint-staged": "^15.2.2",
+    "postcss": "^8.4.35",
+    "prettier": "^3.2.5",
+    "prisma": "^5.9.1",
+    "snyk": "^1.1278.0",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5.3.3"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,md}": [
+      "prettier --write"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "pre-push": "npm run type-check && npm run test && npm run security:audit"
+    }
+  },
+  "jest": {
+    "testEnvironment": "jsdom",
+    "setupFilesAfterEnv": [
+      "<rootDir>/jest.setup.js"
+    ],
+    "moduleNameMapping": {
+      "^@/(.*)$": "<rootDir>/$1"
+    },
+    "collectCoverageFrom": [
+      "**/*.{js,jsx,ts,tsx}",
+      "!**/*.d.ts",
+      "!**/node_modules/**",
+      "!**/coverage/**",
+      "!**/.next/**"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 80,
+        "functions": 80,
+        "lines": 80,
+        "statements": 80
+      }
+    }
+  },
+  "browserslist": [
+    "defaults",
+    "not ie <= 11"
+  ],
+  "keywords": [
+    "project-management",
+    "react",
+    "nextjs",
+    "typescript",
+    "tailwindcss",
+    "authentication",
+    "real-time"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/company/project-management-app.git"
+  },
+  "author": "Development Team <dev@company.com>",
+  "license": "MIT",
+  "homepage": "https://github.com/company/project-management-app#readme",
+  "bugs": {
+    "url": "https://github.com/company/project-management-app/issues"
+  }
+}

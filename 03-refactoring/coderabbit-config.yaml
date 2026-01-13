@@ -1,0 +1,301 @@
+---
+name: "Refactoring PR Summary"
+description: "Specialized configuration for analyzing code refactoring pull requests"
+version: "1.0.0"
+
+# PR Classification
+classification:
+  type: "refactoring"
+  priority: "medium"
+  categories:
+    - "code-structure"
+    - "design-patterns"
+    - "maintainability"
+    - "code-quality"
+    - "architecture"
+
+# Summary Configuration
+summary:
+  template: "refactoring"
+  max_length: 500
+  focus_areas:
+    - refactoring_goals
+    - structure_changes
+    - design_patterns
+    - maintainability_impact
+
+  structure:
+    header:
+      title: "♻️ Code Refactoring"
+      emoji: "♻️"
+      style: "clean"
+
+    sections:
+      - name: "Refactoring Goals"
+        icon: "🎯"
+        required: true
+        format: "bullet_points"
+        max_items: 4
+        content:
+          - "What improvements were made and why"
+          - "Technical debt addressed"
+          - "Code quality objectives achieved"
+          - "Long-term benefits realized"
+
+      - name: "Code Structure Changes"
+        icon: "🏗️"
+        required: true
+        format: "bullet_points"
+        content:
+          - "How the architecture was improved"
+          - "Classes/functions extracted or consolidated"
+          - "Module organization changes"
+          - "Dependency management improvements"
+
+      - name: "Design Patterns Applied"
+        icon: "🔧"
+        required: false
+        format: "list"
+        content:
+          - "New patterns introduced"
+          - "Pattern implementations improved"
+          - "Anti-patterns removed"
+          - "Architecture principles applied"
+
+      - name: "Performance Impact"
+        icon: "⚡"
+        required: false
+        format: "paragraph"
+        content:
+          - "Any performance improvements achieved"
+          - "Memory usage optimization"
+          - "Execution efficiency gains"
+          - "Resource utilization improvements"
+
+      - name: "Maintainability Improvements"
+        icon: "🔧"
+        required: true
+        format: "bullet_points"
+        content:
+          - "How this makes the code easier to maintain"
+          - "Reduced complexity metrics"
+          - "Improved readability and clarity"
+          - "Enhanced testability"
+
+      - name: "Breaking Changes"
+        icon: "⚠️"
+        required: false
+        format: "alert"
+        content:
+          - "Any breaking changes introduced"
+          - "Migration requirements"
+          - "Deprecation notices"
+          - "Backward compatibility considerations"
+
+# Analysis Instructions
+analysis:
+  instructions: |
+    Analyze this pull request focusing on code structure and quality improvements. Pay special attention to:
+
+    1. **Refactoring Scope**: Identify what areas of code were restructured and why
+    2. **Quality Gains**: Assess improvements in code readability, maintainability, and structure
+    3. **Design Improvements**: Note better separation of concerns, patterns, and architecture
+    4. **Technical Debt**: Highlight technical debt reduction and long-term benefits
+    5. **Risk Assessment**: Identify any potential risks from structural changes
+
+    Focus on the before/after benefits and how this prepares the codebase for future development.
+
+  focus_patterns:
+    - pattern: "refactor|restructure|reorganize|extract|consolidate|simplify"
+      weight: 1.0
+      description: "Refactoring activity indicators"
+
+    - pattern: "(?:extract|create).*(?:class|function|method|component|module|service)"
+      weight: 0.9
+      description: "Code extraction patterns"
+
+    - pattern: "(?:remove|eliminate).*(?:duplicate|redundant|unused|dead)"
+      weight: 0.8
+      description: "Code cleanup patterns"
+
+    - pattern: "(?:improve|enhance|optimize).*(?:structure|organization|design|pattern)"
+      weight: 0.8
+      description: "Structure improvement patterns"
+
+    - pattern: "separation.*(?:of.*concerns|concerns)|single.*responsibility|dependency.*injection"
+      weight: 0.9
+      description: "Design principle applications"
+
+    - pattern: "(?:move|relocate|reorganize).*(?:file|class|function|module)"
+      weight: 0.7
+      description: "Code reorganization"
+
+# Code Quality Metrics
+quality_metrics:
+  complexity:
+    enabled: true
+    thresholds:
+      cyclomatic: 10
+      cognitive: 15
+      nesting_depth: 4
+
+  duplication:
+    enabled: true
+    threshold: 5
+
+  maintainability:
+    enabled: true
+    factors:
+      - "readability"
+      - "modularity"
+      - "testability"
+      - "documentation"
+
+  design_patterns:
+    enabled: true
+    recognized_patterns:
+      - "Factory"
+      - "Observer"
+      - "Strategy"
+      - "Repository"
+      - "Dependency Injection"
+      - "Adapter"
+      - "Builder"
+
+# File Analysis Rules
+file_analysis:
+  include_patterns:
+    - "**/*.{js,ts,jsx,tsx,py,java,go,rs,php,rb,c,cpp,h,cs,kt}"
+    - "**/src/**"
+    - "**/lib/**"
+
+  exclude_patterns:
+    - "**/node_modules/**"
+    - "**/dist/**"
+    - "**/build/**"
+    - "**/vendor/**"
+    - "**/third_party/**"
+
+  priority_files:
+    - pattern: "**/src/**"
+      weight: 1.0
+    - pattern: "**/lib/**"
+      weight: 0.9
+    - pattern: "**/core/**"
+      weight: 0.9
+    - pattern: "**/services/**"
+      weight: 0.8
+
+# Quality Checks
+quality_checks:
+  breaking_changes:
+    enabled: true
+    severity: "high"
+    patterns:
+      - "BREAKING"
+      - "remove.*public"
+      - "change.*interface"
+      - "rename.*public"
+
+  test_impact:
+    enabled: true
+    severity: "medium"
+    patterns:
+      - "test.*update"
+      - "mock.*change"
+      - "stub.*modify"
+
+  documentation_updates:
+    enabled: true
+    required: false
+    patterns:
+      - "README"
+      - "doc/"
+      - "documentation"
+      - "comment"
+
+# Refactoring Types
+refactoring_types:
+  extract_method:
+    patterns:
+      - "extract.*(?:method|function)"
+      - "create.*(?:helper|utility)"
+    description: "Method/function extraction for better modularity"
+
+  extract_class:
+    patterns:
+      - "extract.*(?:class|component|service)"
+      - "separate.*(?:concerns|responsibilities)"
+    description: "Class extraction for single responsibility"
+
+  move_features:
+    patterns:
+      - "move.*(?:to|into)"
+      - "relocate"
+      - "reorganize"
+    description: "Feature movement for better organization"
+
+  rename:
+    patterns:
+      - "rename"
+      - "better.*name"
+      - "clarify.*name"
+    description: "Renaming for clarity and consistency"
+
+  remove_duplication:
+    patterns:
+      - "(?:remove|eliminate|reduce).*(?:duplicate|duplication|redundancy)"
+      - "consolidate"
+      - "shared.*(?:function|method|util)"
+    description: "Duplication removal for DRY principle"
+
+# Output Configuration
+output:
+  format: "markdown"
+  style: "technical"
+  include_metrics: true
+  include_files_changed: true
+  include_complexity_score: true
+
+  badges:
+    - name: "refactoring"
+      color: "blue"
+      icon: "♻️"
+    - name: "clean-code"
+      color: "green"
+      icon: "✨"
+      condition: "improves_quality"
+    - name: "breaking"
+      color: "red"
+      icon: "⚠️"
+      condition: "has_breaking_changes"
+    - name: "performance"
+      color: "orange"
+      icon: "⚡"
+      condition: "improves_performance"
+
+# Validation Rules
+validation:
+  required_sections:
+    - "Refactoring Goals"
+    - "Code Structure Changes"
+    - "Maintainability Improvements"
+
+  minimum_description_length: 100
+  require_test_updates: false
+  require_documentation_updates: false
+
+# Integration Settings
+integrations:
+  github:
+    enabled: true
+    label_auto_add:
+      - "refactoring"
+      - "code-quality"
+
+  sonarqube:
+    enabled: true
+    quality_gate_check: true
+
+  codeclimate:
+    enabled: true

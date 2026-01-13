@@ -1,0 +1,328 @@
+---
+name: "API Changes PR Summary"
+description: "Specialized configuration for analyzing API modification pull requests"
+version: "1.0.0"
+
+# PR Classification
+classification:
+  type: "api_changes"
+  priority: "high"
+  categories:
+    - "endpoint-changes"
+    - "schema-updates"
+    - "authentication"
+    - "versioning"
+    - "breaking-changes"
+
+# Summary Configuration
+summary:
+  template: "api_changes"
+  max_length: 600
+  focus_areas:
+    - api_changes_overview
+    - breaking_changes
+    - new_functionality
+    - backward_compatibility
+
+  structure:
+    header:
+      title: "🔌 API Changes"
+      emoji: "🔌"
+      style: "api-focused"
+
+    sections:
+      - name: "API Changes Overview"
+        icon: "📋"
+        required: true
+        format: "bullet_points"
+        max_items: 4
+        content:
+          - "What endpoints were added, modified, or removed"
+          - "Schema or parameter changes"
+          - "Authentication/authorization updates"
+          - "API version changes"
+
+      - name: "Breaking Changes"
+        icon: "⚠️"
+        required: false
+        format: "alert"
+        style: "warning"
+        content:
+          - "Any changes that affect existing clients"
+          - "Deprecated endpoints or parameters"
+          - "Changed response formats"
+          - "Authentication requirement changes"
+
+      - name: "New Functionality"
+        icon: "✨"
+        required: false
+        format: "bullet_points"
+        content:
+          - "Additional capabilities introduced"
+          - "New endpoints and their purposes"
+          - "Enhanced features for existing endpoints"
+          - "Improved error handling or responses"
+
+      - name: "Request/Response Changes"
+        icon: "📤"
+        required: true
+        format: "code_examples"
+        content:
+          - "Schema modifications and new parameters"
+          - "Response format changes"
+          - "Header requirements updates"
+          - "Content type changes"
+
+      - name: "Backward Compatibility"
+        icon: "🔄"
+        required: true
+        format: "bullet_points"
+        content:
+          - "How existing integrations are handled"
+          - "Migration path for clients"
+          - "Deprecation timeline (if applicable)"
+          - "Versioning strategy implemented"
+
+      - name: "Documentation Updates"
+        icon: "📚"
+        required: false
+        format: "checklist"
+        content:
+          - "API documentation updated"
+          - "OpenAPI/Swagger specs modified"
+          - "SDK documentation revised"
+          - "Migration guide provided"
+
+# Analysis Instructions
+analysis:
+  instructions: |
+    Analyze this pull request focusing on API modifications and their impact. Pay special attention to:
+
+    1. **Breaking Changes**: Identify any changes that will affect existing API clients
+    2. **New Capabilities**: Highlight new functionality and its business value
+    3. **Integration Impact**: Assess how changes affect existing integrations
+    4. **Documentation Quality**: Ensure API changes are properly documented
+    5. **Migration Path**: Provide clear guidance for client updates if needed
+
+    Prioritize clarity for both technical and business stakeholders, emphasizing compatibility and migration considerations.
+
+  focus_patterns:
+    - pattern: "(?:api|endpoint|route|controller).*(?:add|create|new|modify|update|change|remove|delete)"
+      weight: 1.0
+      description: "API endpoint modifications"
+
+    - pattern: "(?:schema|model|dto|request|response).*(?:add|change|update|modify|remove)"
+      weight: 0.9
+      description: "Data schema changes"
+
+    - pattern: "(?:auth|authentication|authorization|permission|token|key)"
+      weight: 0.9
+      description: "Authentication changes"
+
+    - pattern: "(?:version|v[0-9]+|deprecat|breaking|backward.*compat)"
+      weight: 1.0
+      description: "Versioning and compatibility"
+
+    - pattern: "(?:swagger|openapi|documentation|docs).*(?:update|change|add)"
+      weight: 0.8
+      description: "Documentation updates"
+
+    - pattern: "(?:rate.*limit|throttl|pagination|sort|filter).*(?:add|change|update)"
+      weight: 0.7
+      description: "API feature enhancements"
+
+# API Change Types
+change_types:
+  endpoint_addition:
+    patterns:
+      - "(?:add|create|new).*(?:endpoint|route|api|controller)"
+    impact: "low"
+    description: "New endpoints added"
+
+  endpoint_modification:
+    patterns:
+      - "(?:modify|update|change).*(?:endpoint|route|api|controller)"
+    impact: "medium"
+    description: "Existing endpoints modified"
+
+  endpoint_removal:
+    patterns:
+      - "(?:remove|delete|deprecat).*(?:endpoint|route|api|controller)"
+    impact: "high"
+    description: "Endpoints removed or deprecated"
+
+  schema_change:
+    patterns:
+      - "(?:schema|model|dto).*(?:change|update|modify|add|remove)"
+    impact: "medium-high"
+    description: "Request/response schema changes"
+
+  authentication_change:
+    patterns:
+      - "(?:auth|token|key|permission).*(?:change|update|add|remove)"
+    impact: "high"
+    description: "Authentication/authorization changes"
+
+  versioning:
+    patterns:
+      - "(?:version|v[0-9]+|api.*version)"
+    impact: "medium"
+    description: "API versioning changes"
+
+# File Analysis Rules
+file_analysis:
+  include_patterns:
+    - "**/api/**/*.{js,ts,py,java,go,rs,php,rb}"
+    - "**/controllers/**/*.{js,ts,py,java,go,rs,php,rb}"
+    - "**/routes/**/*.{js,ts,py,java,go,rs,php,rb}"
+    - "**/models/**/*.{js,ts,py,java,go,rs,php,rb}"
+    - "**/schemas/**/*.{js,ts,py,java,go,rs,php,rb,json,yaml,yml}"
+    - "**/swagger/**"
+    - "**/openapi/**"
+    - "**/*api*.{yaml,yml,json}"
+
+  exclude_patterns:
+    - "**/node_modules/**"
+    - "**/dist/**"
+    - "**/build/**"
+    - "**/test/**"
+    - "**/spec/**"
+
+  priority_files:
+    - pattern: "**/api/**"
+      weight: 1.0
+    - pattern: "**/controllers/**"
+      weight: 0.9
+    - pattern: "**/routes/**"
+      weight: 0.9
+    - pattern: "**/models/**"
+      weight: 0.8
+    - pattern: "**/swagger/**"
+      weight: 0.7
+
+# Quality Checks
+quality_checks:
+  breaking_changes:
+    enabled: true
+    severity: "critical"
+    patterns:
+      - "BREAKING"
+      - "breaking.*change"
+      - "remove.*endpoint"
+      - "delete.*api"
+      - "deprecat"
+
+  authentication_security:
+    enabled: true
+    severity: "high"
+    patterns:
+      - "auth"
+      - "token"
+      - "security"
+      - "permission"
+      - "credential"
+
+  documentation_completeness:
+    enabled: true
+    severity: "medium"
+    required_files:
+      - "openapi"
+      - "swagger"
+      - "api.*doc"
+
+  versioning_strategy:
+    enabled: true
+    severity: "medium"
+    patterns:
+      - "version"
+      - "v[0-9]+"
+      - "api.*version"
+
+# Compatibility Assessment
+compatibility:
+  backward_compatibility:
+    required: true
+    breaking_indicators:
+      - "remove.*parameter"
+      - "change.*response.*format"
+      - "require.*new.*parameter"
+      - "change.*http.*method"
+      - "change.*endpoint.*path"
+
+  forward_compatibility:
+    assess: true
+    indicators:
+      - "optional.*parameter"
+      - "default.*value"
+      - "graceful.*degradation"
+
+# Output Configuration
+output:
+  format: "markdown"
+  style: "api-documentation"
+  include_metrics: true
+  include_files_changed: true
+  include_examples: true
+  include_migration_guide: true
+
+  badges:
+    - name: "api-changes"
+      color: "blue"
+      icon: "🔌"
+    - name: "breaking"
+      color: "red"
+      icon: "⚠️"
+      condition: "has_breaking_changes"
+    - name: "new-endpoints"
+      color: "green"
+      icon: "✨"
+      condition: "has_new_endpoints"
+    - name: "deprecated"
+      color: "yellow"
+      icon: "📋"
+      condition: "has_deprecations"
+    - name: "documented"
+      color: "purple"
+      icon: "📚"
+      condition: "has_documentation_updates"
+
+# Validation Rules
+validation:
+  required_sections:
+    - "API Changes Overview"
+    - "Request/Response Changes"
+    - "Backward Compatibility"
+
+  minimum_description_length: 150
+  require_documentation_updates: true
+  require_breaking_change_justification: true
+
+# Migration Guide Generation
+migration_guide:
+  auto_generate: true
+  include_examples: true
+  sections:
+    - "Overview of Changes"
+    - "Breaking Changes"
+    - "Migration Steps"
+    - "Code Examples"
+    - "Timeline"
+
+# Integration Settings
+integrations:
+  github:
+    enabled: true
+    label_auto_add:
+      - "api"
+      - "endpoints"
+
+  postman:
+    enabled: true
+    collection_auto_update: true
+
+  swagger_hub:
+    enabled: true
+    spec_auto_sync: true
+
+  api_gateway:
+    enabled: false

@@ -1,0 +1,339 @@
+---
+name: "Documentation Updates PR Summary"
+description: "Specialized configuration for analyzing documentation update pull requests"
+version: "1.0.0"
+
+# PR Classification
+classification:
+  type: "documentation"
+  priority: "low"
+  categories:
+    - "api-docs"
+    - "user-guides"
+    - "developer-docs"
+    - "readme-updates"
+    - "code-comments"
+
+# Summary Configuration
+summary:
+  template: "documentation_updates"
+  max_length: 450
+  focus_areas:
+    - documentation_scope
+    - content_improvements
+    - accessibility_improvements
+    - developer_experience
+
+  structure:
+    header:
+      title: "📚 Documentation Updates"
+      emoji: "📚"
+      style: "content-focused"
+
+    sections:
+      - name: "Documentation Scope"
+        icon: "📋"
+        required: true
+        format: "bullet_points"
+        content:
+          - "What areas of documentation were improved"
+          - "Types of content added or updated"
+          - "Target audience for the changes"
+          - "Coverage gaps addressed"
+
+      - name: "Content Improvements"
+        icon: "✍️"
+        required: true
+        format: "bullet_points"
+        content:
+          - "New guides, tutorials, or reference material"
+          - "Updated instructions or procedures"
+          - "Fixed outdated or incorrect information"
+          - "Enhanced explanations and examples"
+
+      - name: "Structure & Organization"
+        icon: "🗂️"
+        required: false
+        format: "bullet_points"
+        content:
+          - "Better organization or navigation"
+          - "Improved information architecture"
+          - "New sections or reorganized content"
+          - "Enhanced cross-referencing and linking"
+
+      - name: "Code Examples & Tutorials"
+        icon: "💻"
+        required: false
+        format: "bullet_points"
+        content:
+          - "Updated or new code samples"
+          - "Step-by-step tutorials added"
+          - "Interactive examples or demos"
+          - "API usage examples updated"
+
+      - name: "Developer Experience"
+        icon: "👩‍💻"
+        required: false
+        format: "paragraph"
+        content:
+          - "How these changes improve developer experience"
+          - "Onboarding improvements for new contributors"
+          - "Reduced friction in understanding concepts"
+          - "Better discoverability of information"
+
+      - name: "Accessibility & Format"
+        icon: "♿"
+        required: false
+        format: "checklist"
+        content:
+          - "Improved readability and clarity"
+          - "Better formatting and visual hierarchy"
+          - "Accessibility improvements"
+          - "Multi-format support (web, PDF, etc.)"
+
+# Analysis Instructions
+analysis:
+  instructions: |
+    Analyze this pull request focusing on documentation improvements and knowledge sharing. Pay special attention to:
+
+    1. **Content Quality**: Assess the accuracy, completeness, and clarity of documentation
+    2. **User Impact**: Consider how these changes help different user types (developers, end-users, contributors)
+    3. **Accessibility**: Evaluate readability improvements and inclusive design
+    4. **Maintenance**: Note any improvements to documentation maintainability
+    5. **Coverage**: Identify gaps filled or areas of documentation expanded
+
+    Focus on how these documentation changes make the project more accessible and easier to understand.
+
+  focus_patterns:
+    - pattern: "(?:readme|README|doc|docs|documentation|guide|tutorial|manual)"
+      weight: 1.0
+      description: "Documentation files and content"
+
+    - pattern: "(?:api|endpoint|reference).*(?:doc|documentation|spec|guide)"
+      weight: 0.9
+      description: "API documentation"
+
+    - pattern: "(?:comment|docstring|jsdoc|javadoc|pydoc|rustdoc)"
+      weight: 0.8
+      description: "Code documentation"
+
+    - pattern: "(?:example|sample|demo|tutorial|walkthrough|how.*to)"
+      weight: 0.8
+      description: "Examples and tutorials"
+
+    - pattern: "(?:install|setup|configuration|deploy|getting.*started)"
+      weight: 0.7
+      description: "Setup and configuration guides"
+
+    - pattern: "(?:changelog|release.*notes|migration|upgrade)"
+      weight: 0.6
+      description: "Release and migration documentation"
+
+# Documentation Types
+documentation_types:
+  api_reference:
+    patterns:
+      - "api.*(?:doc|reference|spec)|openapi|swagger"
+    description: "API documentation and references"
+    weight: 1.0
+
+  user_guides:
+    patterns:
+      - "guide|tutorial|how.*to|walkthrough|manual"
+    description: "User guides and tutorials"
+    weight: 0.9
+
+  developer_docs:
+    patterns:
+      - "developer|contributing|architecture|design|development"
+    description: "Developer and contributor documentation"
+    weight: 0.8
+
+  setup_instructions:
+    patterns:
+      - "install|setup|configuration|deploy|getting.*started"
+    description: "Installation and setup guides"
+    weight: 0.8
+
+  code_comments:
+    patterns:
+      - "comment|docstring|jsdoc|javadoc|pydoc|rustdoc"
+    description: "In-code documentation"
+    weight: 0.7
+
+  troubleshooting:
+    patterns:
+      - "troubleshoot|faq|common.*issues|known.*issues|debug"
+    description: "Troubleshooting and FAQ content"
+    weight: 0.6
+
+# Content Quality Checks
+content_quality:
+  readability:
+    enabled: true
+    metrics:
+      - "flesch_reading_ease"
+      - "average_sentence_length"
+      - "passive_voice_percentage"
+
+  structure:
+    enabled: true
+    checks:
+      - "headers_hierarchy"
+      - "table_of_contents"
+      - "cross_references"
+      - "code_block_formatting"
+
+  completeness:
+    enabled: true
+    requirements:
+      - "examples_present"
+      - "prerequisites_listed"
+      - "references_included"
+
+# File Analysis Rules
+file_analysis:
+  include_patterns:
+    - "**/*.md"
+    - "**/*.rst"
+    - "**/*.txt"
+    - "**/README*"
+    - "**/CHANGELOG*"
+    - "**/CONTRIBUTING*"
+    - "**/docs/**"
+    - "**/documentation/**"
+    - "**/*.{js,ts,py,java,go,rs,php,rb}"  # For code comments
+
+  exclude_patterns:
+    - "**/node_modules/**"
+    - "**/dist/**"
+    - "**/build/**"
+    - "**/coverage/**"
+    - "**/.git/**"
+
+  priority_files:
+    - pattern: "**/README*"
+      weight: 1.0
+    - pattern: "**/docs/**"
+      weight: 0.9
+    - pattern: "**/CONTRIBUTING*"
+      weight: 0.8
+    - pattern: "**/*.md"
+      weight: 0.7
+
+# Quality Checks
+quality_checks:
+  broken_links:
+    enabled: true
+    severity: "medium"
+    check_external: false
+
+  spelling_grammar:
+    enabled: true
+    severity: "low"
+    ignore_code_blocks: true
+
+  formatting_consistency:
+    enabled: true
+    checks:
+      - "markdown_lint"
+      - "heading_levels"
+      - "list_formatting"
+
+  code_examples:
+    enabled: true
+    verify_syntax: true
+    require_language_tags: true
+
+# Documentation Standards
+standards:
+  markdown:
+    style: "github"
+    line_length: 80
+    heading_style: "atx"
+    list_marker: "-"
+
+  code_blocks:
+    require_language: true
+    supported_languages:
+      - "javascript"
+      - "typescript"
+      - "python"
+      - "java"
+      - "go"
+      - "rust"
+      - "bash"
+      - "yaml"
+      - "json"
+
+  links:
+    prefer_relative: true
+    check_anchors: true
+    require_titles: false
+
+# Output Configuration
+output:
+  format: "markdown"
+  style: "documentation-focused"
+  include_metrics: false
+  include_files_changed: true
+  include_word_count: true
+
+  badges:
+    - name: "documentation"
+      color: "blue"
+      icon: "📚"
+    - name: "api-docs"
+      color: "green"
+      icon: "📖"
+      condition: "api_documentation"
+    - name: "tutorials"
+      color: "purple"
+      icon: "🎓"
+      condition: "has_tutorials"
+    - name: "examples"
+      color: "orange"
+      icon: "💡"
+      condition: "has_examples"
+
+# Validation Rules
+validation:
+  required_sections:
+    - "Documentation Scope"
+    - "Content Improvements"
+
+  minimum_description_length: 60
+  require_examples_for_new_features: false
+  check_documentation_coverage: false
+
+# Metrics Tracking
+metrics:
+  word_count:
+    enabled: true
+    track_changes: true
+
+  readability_score:
+    enabled: true
+    target_score: 60
+
+  coverage:
+    enabled: false
+    track_api_coverage: false
+
+# Integration Settings
+integrations:
+  github:
+    enabled: true
+    label_auto_add:
+      - "documentation"
+      - "docs"
+
+  gitbook:
+    enabled: false
+    auto_sync: false
+
+  confluence:
+    enabled: false
+
+  notion:
+    enabled: false

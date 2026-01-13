@@ -1,0 +1,313 @@
+---
+name: "Testing Improvements PR Summary"
+description: "Specialized configuration for analyzing testing enhancement pull requests"
+version: "1.0.0"
+
+# PR Classification
+classification:
+  type: "testing"
+  priority: "medium"
+  categories:
+    - "test-coverage"
+    - "test-quality"
+    - "test-automation"
+    - "performance-testing"
+    - "integration-testing"
+
+# Summary Configuration
+summary:
+  template: "testing_improvements"
+  max_length: 500
+  focus_areas:
+    - testing_coverage
+    - test_categories
+    - quality_improvements
+    - ci_cd_integration
+
+  structure:
+    header:
+      title: "🧪 Testing Improvements"
+      emoji: "🧪"
+      style: "quality-focused"
+
+    sections:
+      - name: "Testing Coverage Added"
+        icon: "📊"
+        required: true
+        format: "bullet_points"
+        content:
+          - "What new tests were added or improved"
+          - "Coverage percentage improvements"
+          - "Previously untested functionality now covered"
+          - "Edge cases and scenarios addressed"
+
+      - name: "Test Categories Enhanced"
+        icon: "🎯"
+        required: true
+        format: "checklist"
+        content:
+          - "Unit tests for individual components"
+          - "Integration tests for system interactions"
+          - "End-to-end tests for user workflows"
+          - "Performance and load testing"
+          - "Security and penetration testing"
+
+      - name: "Quality Improvements"
+        icon: "✨"
+        required: false
+        format: "bullet_points"
+        content:
+          - "Better assertions and test structure"
+          - "Improved mocking and stubbing"
+          - "Test utilities and helpers added"
+          - "Test data management enhanced"
+
+      - name: "CI/CD Integration"
+        icon: "🔄"
+        required: false
+        format: "bullet_points"
+        content:
+          - "Pipeline improvements and automated testing"
+          - "Test parallelization implemented"
+          - "Coverage reporting enhanced"
+          - "Quality gates strengthened"
+
+      - name: "Testing Tools & Framework"
+        icon: "🔧"
+        required: false
+        format: "list"
+        content:
+          - "New testing frameworks or libraries"
+          - "Test runner configurations"
+          - "Mock and fixture improvements"
+          - "Debugging and reporting tools"
+
+# Analysis Instructions
+analysis:
+  instructions: |
+    Analyze this pull request focusing on testing improvements and quality assurance. Pay special attention to:
+
+    1. **Coverage Analysis**: Identify what new areas are covered and coverage percentage improvements
+    2. **Test Quality**: Assess the quality and comprehensiveness of test implementations
+    3. **Testing Strategy**: Evaluate the testing approach and methodologies used
+    4. **Automation Benefits**: Highlight improvements to automated testing workflows
+    5. **Risk Reduction**: Explain how these tests prevent regressions and catch issues
+
+    Emphasize how these testing improvements enhance code quality and reduce deployment risks.
+
+  focus_patterns:
+    - pattern: "test|spec|mock|stub|coverage|assert"
+      weight: 1.0
+      description: "Testing-related indicators"
+
+    - pattern: "jest|mocha|jasmine|pytest|junit|testng|rspec|gtest"
+      weight: 0.9
+      description: "Testing frameworks"
+
+    - pattern: "unit.*test|integration.*test|e2e.*test|end.*to.*end"
+      weight: 0.9
+      description: "Test categories"
+
+    - pattern: "coverage|threshold|report|metric"
+      weight: 0.8
+      description: "Coverage and metrics"
+
+    - pattern: "mock|stub|spy|fake|fixture|factory"
+      weight: 0.7
+      description: "Test doubles and data"
+
+    - pattern: "ci|cd|pipeline|automation|github.*actions|jenkins"
+      weight: 0.6
+      description: "CI/CD integration"
+
+# Test Categories
+test_categories:
+  unit_tests:
+    patterns:
+      - "unit.*test|test.*unit|\\.test\\.|_test\\.|spec\\."
+    description: "Tests for individual functions/methods"
+    weight: 1.0
+
+  integration_tests:
+    patterns:
+      - "integration.*test|test.*integration|api.*test"
+    description: "Tests for component interactions"
+    weight: 0.9
+
+  e2e_tests:
+    patterns:
+      - "e2e|end.*to.*end|selenium|cypress|playwright|webdriver"
+    description: "End-to-end user workflow tests"
+    weight: 0.8
+
+  performance_tests:
+    patterns:
+      - "performance.*test|load.*test|stress.*test|benchmark"
+    description: "Performance and load testing"
+    weight: 0.7
+
+  security_tests:
+    patterns:
+      - "security.*test|penetration.*test|vulnerability.*test"
+    description: "Security and vulnerability testing"
+    weight: 0.7
+
+# Coverage Analysis
+coverage_analysis:
+  enabled: true
+  thresholds:
+    lines: 80
+    functions: 80
+    branches: 75
+    statements: 80
+
+  metrics:
+    - "line_coverage"
+    - "branch_coverage"
+    - "function_coverage"
+    - "statement_coverage"
+
+  reporting:
+    format: "lcov"
+    include_html: true
+    badge_generation: true
+
+# File Analysis Rules
+file_analysis:
+  include_patterns:
+    - "**/*test*"
+    - "**/*spec*"
+    - "**/test/**"
+    - "**/tests/**"
+    - "**/spec/**"
+    - "**/__tests__/**"
+    - "**/e2e/**"
+    - "**/*.test.{js,ts,py,java,go,rs,php,rb}"
+    - "**/*.spec.{js,ts,py,java,go,rs,php,rb}"
+
+  exclude_patterns:
+    - "**/node_modules/**"
+    - "**/dist/**"
+    - "**/build/**"
+    - "**/coverage/**"
+
+  priority_files:
+    - pattern: "**/test/**"
+      weight: 1.0
+    - pattern: "**/*test*"
+      weight: 0.9
+    - pattern: "**/*spec*"
+      weight: 0.9
+    - pattern: "**/e2e/**"
+      weight: 0.8
+
+# Quality Checks
+quality_checks:
+  test_naming:
+    enabled: true
+    patterns:
+      - "should|expect|it.*should|describe|context"
+    description: "Descriptive test naming conventions"
+
+  assertion_quality:
+    enabled: true
+    patterns:
+      - "assert|expect|should|toBe|toEqual|toMatch"
+    description: "Proper assertion usage"
+
+  mock_usage:
+    enabled: true
+    patterns:
+      - "mock|stub|spy|fake|sinon|jest\\.mock"
+    description: "Appropriate mock and stub usage"
+
+  test_isolation:
+    enabled: true
+    patterns:
+      - "beforeEach|afterEach|setUp|tearDown|beforeAll|afterAll"
+    description: "Proper test setup and cleanup"
+
+# Framework Detection
+testing_frameworks:
+  javascript:
+    - "jest"
+    - "mocha"
+    - "jasmine"
+    - "vitest"
+    - "cypress"
+    - "playwright"
+
+  python:
+    - "pytest"
+    - "unittest"
+    - "nose"
+    - "testify"
+
+  java:
+    - "junit"
+    - "testng"
+    - "mockito"
+
+  go:
+    - "testing"
+    - "testify"
+    - "ginkgo"
+
+  ruby:
+    - "rspec"
+    - "minitest"
+    - "test-unit"
+
+# Output Configuration
+output:
+  format: "markdown"
+  style: "coverage-focused"
+  include_metrics: true
+  include_files_changed: true
+  include_coverage_delta: true
+
+  badges:
+    - name: "tests"
+      color: "green"
+      icon: "🧪"
+    - name: "high-coverage"
+      color: "brightgreen"
+      icon: "📊"
+      condition: "coverage_above_90"
+    - name: "e2e-tests"
+      color: "blue"
+      icon: "🔄"
+      condition: "has_e2e_tests"
+    - name: "performance-tests"
+      color: "orange"
+      icon: "⚡"
+      condition: "has_performance_tests"
+
+# Validation Rules
+validation:
+  required_sections:
+    - "Testing Coverage Added"
+    - "Test Categories Enhanced"
+
+  minimum_test_files: 1
+  require_coverage_improvement: false
+  minimum_description_length: 80
+
+# Integration Settings
+integrations:
+  github:
+    enabled: true
+    label_auto_add:
+      - "tests"
+      - "quality"
+
+  codecov:
+    enabled: true
+    coverage_reporting: true
+
+  sonarqube:
+    enabled: true
+    quality_metrics: true
+
+  jenkins:
+    enabled: false

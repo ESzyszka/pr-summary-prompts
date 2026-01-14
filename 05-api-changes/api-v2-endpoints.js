@@ -386,6 +386,119 @@ router.get('/health',
   }
 );
 
+// Webhook management endpoints
+router.get('/webhooks',
+  authMiddleware,
+  adminMiddleware,
+  async (req, res) => {
+    try {
+      const webhooks = await WebhookService.getAllWebhooks(req.userId);
+
+      res.json(apiResponse(webhooks, {
+        totalWebhooks: webhooks.length,
+        activeWebhooks: webhooks.filter(w => w.active).length
+      }));
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        error: error.message,
+        code: 'WEBHOOK_FETCH_FAILED'
+      });
+    }
+  }
+);
+
+router.post('/webhooks/test/:webhookId',
+  authMiddleware,
+  [
+    param('webhookId').isMongoId(),
+    body('eventType').isIn(['project.created', 'task.completed', 'user.registered']),
+    body('testData').optional().isObject()
+  ],
+  handleValidationErrors,
+  async (req, res) => {
+    try {
+      const { webhookId } = req.params;
+      const { eventType, testData } = req.body;
+
+      const testResult = await WebhookService.testWebhook(webhookId, eventType, testData || {});
+
+      res.json(apiResponse(testResult, {
+        testedAt: new Date().toISOString(),
+        eventType
+      }));
+    } catch (error) {
+      res.status(400).json({
+        success: false,
+        error: error.message,
+        code: 'WEBHOOK_TEST_FAILED'
+      });
+    }
+  }
+);
+
+router.get('/webhooks/:webhookId/deliveries',
+  authMiddleware,
+  [
+    param('webhookId').isMongoId(),
+    query('limit').optional().isInt({ min: 1, max: 100 }),
+    query('status').optional().isIn(['pending', 'success', 'failed', 'retrying'])
+  ],
+  handleValidationErrors,
+  async (req, res) => {
+    try {
+      const { webhookId } = req.params;
+      const { limit = 50, status } = req.query;
+
+      const deliveries = await WebhookService.getWebhookDeliveries(webhookId, {
+        limit,
+        status,
+        includePayload: false
+      });
+
+      res.json(apiResponse(deliveries.items, {
+        pagination: {
+          total: deliveries.total,
+          limit: deliveries.limit,
+          hasMore: deliveries.hasMore
+        },
+        filters: { status }
+      }));
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        error: error.message,
+        code: 'WEBHOOK_DELIVERIES_FETCH_FAILED'
+      });
+    }
+  }
+);
+
+// Webhook delivery retry endpoint
+router.post('/webhooks/deliveries/:deliveryId/retry',
+  authMiddleware,
+  [param('deliveryId').isMongoId()],
+  handleValidationErrors,
+  async (req, res) => {
+    try {
+      const { deliveryId } = req.params;
+
+      const retryResult = await WebhookService.retryWebhookDelivery(deliveryId, req.userId);
+
+      res.json(apiResponse(retryResult, {
+        retriedAt: new Date().toISOString(),
+        retriedBy: req.userId
+      }));
+    } catch (error) {
+      res.status(400).json({
+        success: false,
+        error: error.message,
+        code: 'WEBHOOK_RETRY_FAILED'
+      });
+    }
+  }
+);
+
 // API documentation endpoint
 router.get('/docs',
   (req, res) => {
@@ -400,6 +513,12 @@ router.get('/docs',
         projects: {
           'GET /api/v2/projects/search': 'Advanced project search',
           'POST /api/v2/projects/:id/webhooks': 'Create project webhook'
+        },
+        webhooks: {
+          'GET /api/v2/webhooks': 'List all webhooks',
+          'POST /api/v2/webhooks/test/:id': 'Test webhook delivery',
+          'GET /api/v2/webhooks/:id/deliveries': 'Get webhook delivery history',
+          'POST /api/v2/webhooks/deliveries/:id/retry': 'Retry failed webhook delivery'
         },
         system: {
           'GET /api/v2/health': 'API health status',

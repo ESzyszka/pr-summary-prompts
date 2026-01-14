@@ -536,4 +536,30 @@ describe('Performance Tests', () => {
 after(() => {
   sinon.restore();
   nock.cleanAll();
+});describe("User Integration Tests", () => {
+  test("should create user account with email verification", async () => {
+    const userData = { email: "test@example.com", password: "SecurePass123!" };
+    const response = await request(app).post("/api/auth/register").send(userData);
+    
+    expect(response.status).toBe(201);
+    expect(response.body.success).toBe(true);
+    expect(response.body.data.user.email).toBe(userData.email);
+    
+    // Verify email was sent
+    const emailSent = await EmailService.wasEmailSent(userData.email);
+    expect(emailSent).toBe(true);
+  });
+
+  test("should handle concurrent user registrations safely", async () => {
+    const promises = Array(50).fill().map((_, i) => 
+      request(app).post("/api/auth/register").send({
+        email: `concurrent${i}@example.com`,
+        password: "SecurePass123!"
+      })
+    );
+    
+    const results = await Promise.allSettled(promises);
+    const successful = results.filter(r => r.status === "fulfilled").length;
+    expect(successful).toBeGreaterThan(45); // 90% success rate
+  });
 });

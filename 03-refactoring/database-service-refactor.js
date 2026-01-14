@@ -293,29 +293,73 @@ class ProductRepository extends BaseRepository {
   }
 }
 
-// Database Service Factory
+// Repository Factory with improved dependency injection
+class RepositoryFactory {
+  constructor(db) {
+    this.db = db;
+    this._repositories = new Map();
+    this._repositoryConfigs = new Map();
+  }
+
+  registerRepository(name, repositoryClass, config = {}) {
+    this._repositoryConfigs.set(name, { repositoryClass, config });
+  }
+
+  getRepository(name) {
+    if (!this._repositories.has(name)) {
+      const repoConfig = this._repositoryConfigs.get(name);
+      if (!repoConfig) {
+        throw new Error(`Repository ${name} not registered`);
+      }
+
+      const { repositoryClass, config } = repoConfig;
+      this._repositories.set(name, new repositoryClass(this.db, config));
+    }
+
+    return this._repositories.get(name);
+  }
+
+  clearRepositoryCache() {
+    this._repositories.clear();
+  }
+}
+
+// Enhanced Database Service with better separation of concerns
 class DatabaseService {
   constructor(config) {
     this.db = new DatabaseConnection(config);
-    this._repositories = new Map();
+    this.repositoryFactory = new RepositoryFactory(this.db);
+
+    // Register default repositories
+    this._registerDefaultRepositories();
   }
 
-  getRepository(repositoryClass) {
-    const className = repositoryClass.name;
+  _registerDefaultRepositories() {
+    this.repositoryFactory.registerRepository('users', UserRepository, {
+      cacheTTL: 300, // 5 minutes cache
+      enableSoftDelete: true
+    });
 
-    if (!this._repositories.has(className)) {
-      this._repositories.set(className, new repositoryClass(this.db));
-    }
+    this.repositoryFactory.registerRepository('products', ProductRepository, {
+      cacheTTL: 600, // 10 minutes cache
+      enableInventoryTracking: true
+    });
+  }
 
-    return this._repositories.get(className);
+  getRepository(name) {
+    return this.repositoryFactory.getRepository(name);
+  }
+
+  registerRepository(name, repositoryClass, config) {
+    return this.repositoryFactory.registerRepository(name, repositoryClass, config);
   }
 
   get users() {
-    return this.getRepository(UserRepository);
+    return this.getRepository('users');
   }
 
   get products() {
-    return this.getRepository(ProductRepository);
+    return this.getRepository('products');
   }
 
   async transaction(callback) {
@@ -326,7 +370,17 @@ class DatabaseService {
     return this.db.query(text, params);
   }
 
+  async healthCheck() {
+    try {
+      await this.db.query('SELECT 1');
+      return { status: 'healthy', timestamp: new Date().toISOString() };
+    } catch (error) {
+      return { status: 'unhealthy', error: error.message, timestamp: new Date().toISOString() };
+    }
+  }
+
   async close() {
+    this.repositoryFactory.clearRepositoryCache();
     await this.db.close();
   }
 }

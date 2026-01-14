@@ -9,17 +9,30 @@ class WebSocketManager extends EventEmitter {
     this.reconnectAttempts = new Map();
     this.maxReconnectAttempts = 5;
 
+    // Fix: Add connection pool management to prevent memory leaks
+    this.connectionPool = new Map();
+    this.poolStats = {
+      active: 0,
+      idle: 0,
+      pending: 0,
+      maxPoolSize: 100
+    };
+
     // Fix: Set max listeners to prevent memory leak warnings
     this.setMaxListeners(50);
 
     // Fix: Bind cleanup methods to ensure proper context
     this.cleanup = this.cleanup.bind(this);
     this.handleProcessExit = this.handleProcessExit.bind(this);
+    this.cleanupStaleConnections = this.cleanupStaleConnections.bind(this);
 
     // Fix: Add proper cleanup on process exit
     process.on('SIGINT', this.handleProcessExit);
     process.on('SIGTERM', this.handleProcessExit);
     process.on('exit', this.handleProcessExit);
+
+    // Fix: Periodic cleanup of stale connections every 30 seconds
+    this.cleanupInterval = setInterval(this.cleanupStaleConnections, 30000);
   }
 
   addConnection(userId, ws) {
@@ -198,8 +211,66 @@ class WebSocketManager extends EventEmitter {
     return this.connections.size;
   }
 
+  // Fix: Add method to clean up stale connections
+  cleanupStaleConnections() {
+    const now = Date.now();
+    const staleThreshold = 5 * 60 * 1000; // 5 minutes
+    const staleConnections = [];
+
+    for (const [userId, ws] of this.connections) {
+      // Check if connection is stale (no activity for 5 minutes)
+      const lastActivity = ws.lastActivity || ws.connectionTime || now;
+      if (now - lastActivity > staleThreshold && ws.readyState !== ws.OPEN) {
+        staleConnections.push({ userId, ws });
+      }
+    }
+
+    // Clean up stale connections
+    staleConnections.forEach(({ userId, ws }) => {
+      console.log(`Cleaning up stale connection for user: ${userId}`);
+      this.removeConnection(userId, ws);
+    });
+
+    // Update pool statistics
+    this.updatePoolStats();
+
+    // Log pool stats for monitoring
+    if (staleConnections.length > 0) {
+      console.log(`Pool cleanup: removed ${staleConnections.length} stale connections`, this.poolStats);
+    }
+  }
+
+  // Fix: Add method to update connection pool statistics
+  updatePoolStats() {
+    this.poolStats.active = 0;
+    this.poolStats.idle = 0;
+
+    for (const [, ws] of this.connections) {
+      if (ws.readyState === ws.OPEN) {
+        const lastActivity = ws.lastActivity || ws.connectionTime || Date.now();
+        const isIdle = Date.now() - lastActivity > 60000; // 1 minute idle
+
+        if (isIdle) {
+          this.poolStats.idle++;
+        } else {
+          this.poolStats.active++;
+        }
+      }
+    }
+  }
+
   getConnectedUsers() {
     return Array.from(this.connections.keys());
+  }
+
+  // Fix: Add method to get pool statistics
+  getPoolStats() {
+    this.updatePoolStats();
+    return {
+      ...this.poolStats,
+      total: this.connections.size,
+      memoryUsage: process.memoryUsage()
+    };
   }
 }
 

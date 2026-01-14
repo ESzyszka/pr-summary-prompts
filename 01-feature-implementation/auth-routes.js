@@ -142,6 +142,116 @@ router.post('/refresh', async (req, res) => {
   }
 });
 
+// OAuth2 Social Login endpoints
+router.get('/oauth/:provider', async (req, res) => {
+  try {
+    const { provider } = req.params;
+    const supportedProviders = ['google', 'github', 'facebook', 'linkedin'];
+
+    if (!supportedProviders.includes(provider)) {
+      return res.status(400).json({
+        success: false,
+        error: 'Unsupported OAuth provider'
+      });
+    }
+
+    const authUrl = await authService.generateOAuthUrl(provider, req.query.redirect_uri);
+
+    res.json({
+      success: true,
+      data: {
+        authUrl,
+        provider,
+        state: authUrl.split('state=')[1]?.split('&')[0]
+      }
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: error.message
+    });
+  }
+});
+
+router.get('/oauth/:provider/callback', async (req, res) => {
+  try {
+    const { provider } = req.params;
+    const { code, state } = req.query;
+
+    if (!code) {
+      return res.status(400).json({
+        success: false,
+        error: 'Authorization code required'
+      });
+    }
+
+    const result = await authService.handleOAuthCallback(provider, code, state);
+
+    // Set refresh token as httpOnly cookie
+    res.cookie('refreshToken', result.refreshToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'strict',
+      maxAge: 7 * 24 * 60 * 60 * 1000
+    });
+
+    res.json({
+      success: true,
+      message: `Successfully authenticated with ${provider}`,
+      data: {
+        user: result.user,
+        accessToken: result.accessToken,
+        isNewUser: result.isNewUser
+      }
+    });
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      error: error.message
+    });
+  }
+});
+
+// Link OAuth account to existing user
+router.post('/oauth/link/:provider', authMiddleware, async (req, res) => {
+  try {
+    const { provider } = req.params;
+    const { code } = req.body;
+
+    const result = await authService.linkOAuthAccount(req.userId, provider, code);
+
+    res.json({
+      success: true,
+      message: `Successfully linked ${provider} account`,
+      data: result
+    });
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      error: error.message
+    });
+  }
+});
+
+// Unlink OAuth account
+router.delete('/oauth/unlink/:provider', authMiddleware, async (req, res) => {
+  try {
+    const { provider } = req.params;
+
+    await authService.unlinkOAuthAccount(req.userId, provider);
+
+    res.json({
+      success: true,
+      message: `Successfully unlinked ${provider} account`
+    });
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      error: error.message
+    });
+  }
+});
+
 // Logout endpoint
 router.post('/logout', authMiddleware, (req, res) => {
   res.clearCookie('refreshToken');

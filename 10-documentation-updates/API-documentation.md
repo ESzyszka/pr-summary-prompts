@@ -730,4 +730,54 @@ task = client.tasks.create({
 - Added webhook support
 - Improved rate limiting
 - Added file attachments
-- Enhanced search functionality
+- Enhanced search functionality# API Usage Examples
+
+## Authentication Examples
+
+### Register New User
+```javascript
+const response = await fetch("/api/auth/register", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({
+    email: "user@example.com",
+    password: "SecurePassword123!",
+    firstName: "John",
+    lastName: "Doe"
+  })
+});
+
+const result = await response.json();
+console.log("User registered:", result.data.user);
+```
+
+### OAuth Social Login  
+```javascript
+// Initiate Google OAuth flow
+const authResponse = await fetch("/api/auth/oauth/google?redirect_uri=https://myapp.com/callback");
+const { authUrl } = await authResponse.json();
+window.location.href = authUrl;
+
+// Handle callback
+const callbackResponse = await fetch("/api/auth/oauth/google/callback", {
+  method: "GET", 
+  credentials: "include"
+});
+```
+
+### Webhook Management
+```javascript
+// Create project webhook
+const webhook = await fetch("/api/v2/projects/123/webhooks", {
+  method: "POST",
+  headers: { 
+    "Authorization": `Bearer ${accessToken}`,
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({
+    url: "https://myapp.com/webhooks/project-updates",
+    events: ["project.updated", "task.completed"],
+    secret: "webhook-secret-key"
+  })
+});
+```

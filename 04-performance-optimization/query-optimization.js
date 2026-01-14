@@ -6,15 +6,34 @@ class OptimizedQueryService {
   constructor(dbConfig) {
     this.db = new Pool(dbConfig);
 
-    // Cache with 5 minute TTL for frequently accessed data
+    // Multi-level cache system for better performance
     this.cache = new NodeCache({
-      stdTTL: 300, // 5 minutes
+      stdTTL: 300, // 5 minutes default
       checkperiod: 60, // Check for expired keys every minute
       useClones: false // Better performance for read-only data
     });
 
-    // Query performance tracking
+    // Hot cache for frequently accessed data (1 minute TTL)
+    this.hotCache = new NodeCache({
+      stdTTL: 60,
+      checkperiod: 10,
+      useClones: false,
+      maxKeys: 1000 // Limit size to prevent memory issues
+    });
+
+    // Query performance tracking with enhanced metrics
     this.queryMetrics = new Map();
+    this.cacheMetrics = {
+      hits: 0,
+      misses: 0,
+      sets: 0,
+      deletes: 0,
+      hotCacheHits: 0,
+      hotCacheMisses: 0
+    };
+
+    // Prepared statement cache for better performance
+    this.preparedStatements = new Map();
   }
 
   // Optimized user dashboard query with caching and joins

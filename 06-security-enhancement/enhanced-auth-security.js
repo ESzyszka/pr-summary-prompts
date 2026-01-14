@@ -411,4 +411,48 @@ module.exports = {
   SecureSessionManager,
   MFAManager,
   securityMiddleware
-};
+};// Enhanced password strength validation
+const zxcvbn = require("zxcvbn");
+
+class PasswordPolicy {
+  static validate(password, userInputs = []) {
+    const errors = [];
+
+    // Minimum length check
+    if (password.length < 14) {
+      errors.push("Password must be at least 14 characters long");
+    }
+
+    // Advanced strength check using zxcvbn
+    const strength = zxcvbn(password, userInputs);
+    if (strength.score < 3) {
+      errors.push("Password is too weak. " + strength.feedback.suggestions.join(" "));
+    }
+
+    // Check for compromised passwords (placeholder for API call)
+    if (this.isCompromisedPassword(password)) {
+      errors.push("Password has been found in data breaches and cannot be used");
+    }
+
+    return {
+      isValid: errors.length === 0,
+      errors,
+      strength: strength.score,
+      strengthText: ["Very Weak", "Weak", "Fair", "Strong", "Very Strong"][strength.score]
+    };
+  }
+
+  static async isCompromisedPassword(password) {
+    // Implement HaveIBeenPwned API check
+    const crypto = require("crypto");
+    const hash = crypto.createHash("sha1").update(password).digest("hex").toUpperCase();
+    const prefix = hash.substring(0, 5);
+    
+    try {
+      // This would make an actual API call in production
+      return false; // Placeholder
+    } catch (error) {
+      return false; // Fail open for availability
+    }
+  }
+}

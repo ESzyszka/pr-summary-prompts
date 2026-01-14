@@ -517,4 +517,31 @@ const ProjectCardSkeleton: React.FC<{ viewMode: ViewMode }> = ({ viewMode }) => 
   </Card>
 );
 
-export default Dashboard;
+export default Dashboard;const ThemeProvider = ({ children }) => {
+  const [theme, setTheme] = useState("light");
+  const [systemPreference, setSystemPreference] = useState("light");
+
+  useEffect(() => {
+    // Detect system preference
+    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+    setSystemPreference(mediaQuery.matches ? "dark" : "light");
+    
+    // Listen for system changes
+    const handleChange = (e) => setSystemPreference(e.matches ? "dark" : "light");
+    mediaQuery.addEventListener("change", handleChange);
+    return () => mediaQuery.removeEventListener("change", handleChange);
+  }, []);
+
+  const toggleTheme = () => {
+    const newTheme = theme === "light" ? "dark" : "light";
+    setTheme(newTheme);
+    localStorage.setItem("theme-preference", newTheme);
+    document.documentElement.setAttribute("data-theme", newTheme);
+  };
+
+  return (
+    <ThemeContext.Provider value={{ theme, toggleTheme, systemPreference }}>
+      {children}
+    </ThemeContext.Provider>
+  );
+};

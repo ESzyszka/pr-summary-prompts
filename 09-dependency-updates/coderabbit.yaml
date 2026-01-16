@@ -1,4 +1,23 @@
 # yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
 reviews:
   high_level_summary_instructions: >-
-    Fetch and follow the PR Summary Guidelines document
+    # Dependency Updates PR Summary
+    
+    Analyze this pull request and provide a comprehensive summary focusing on:
+    
+    ## 📦 Summary Format
+    - **Updated Dependencies**: Which packages were upgraded and to what versions
+    - **Security Improvements**: Vulnerabilities fixed by the updates
+    - **Breaking Changes**: Any API changes that required code modifications
+    - **New Features**: Additional functionality available from updates
+    - **Compatibility**: Node.js, browser, or framework version requirements
+    
+    ## 🎯 Focus Areas
+    - Major vs minor vs patch version updates
+    - Security vulnerability fixes (CVEs)
+    - Performance improvements from updates
+    - Deprecated feature removals
+    - New dependency additions
+    
+    ## 📊 Output Style
+    Group by update type (security, feature, maintenance), highlight any breaking changes prominently, and explain the benefit of each major update category.

@@ -1,4 +1,23 @@
 # yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
 reviews:
   high_level_summary_instructions: >-
-    Fetch and follow the PR Summary Guidelines document
+    # Security Enhancement PR Summary
+    
+    Analyze this pull request and provide a comprehensive summary focusing on:
+    
+    ## 🔒 Summary Format
+    - **Security Issue Addressed**: What vulnerability or risk was mitigated
+    - **Security Measures Implemented**: New protections and safeguards added
+    - **Impact Assessment**: Potential impact if the issue wasn't fixed
+    - **Implementation Details**: How the security fix works
+    - **Compliance**: Any regulatory or standard compliance improvements
+    
+    ## 🛡️ Focus Areas
+    - Authentication and authorization improvements
+    - Input validation and sanitization
+    - Data encryption and secure storage
+    - Access control modifications
+    - Security headers and configurations
+    
+    ## 📊 Output Style
+    Start with the security risk level, explain the technical implementation clearly, and highlight any user-facing changes or migration requirements for enhanced security.

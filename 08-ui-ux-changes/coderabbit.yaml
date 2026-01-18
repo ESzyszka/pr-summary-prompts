@@ -1,41 +1,36 @@
-# yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
+# Docs: https://docs.coderabbit.ai/getting-started/configure-coderabbit
+
+language: en-US
 reviews:
+  # Linked Issues Verification Summary Template
   high_level_summary_instructions: >-
-    # UI/UX Changes PR Summary
-    
-    Analyze this pull request and provide a comprehensive summary focusing on:
-    
-    ## 🎨 Summary Format
-    - **Visual Changes**: What UI elements were modified or added
-    - **User Experience**: How interactions and workflows were improved
-    - **Design System**: Components, patterns, and consistency improvements
-    - **Accessibility**: Improvements for users with disabilities
-    - **Responsive Design**: Mobile and tablet experience enhancements
-    
-    ## 🎯 Focus Areas
-    - New components and design patterns
-    - Interactive elements and animations
-    - Form improvements and validation UX
-    - Navigation and information architecture
-    - Performance optimizations for UI
-    
-    ## 📊 Output Style
-    Describe visual changes clearly using tables to organize the improvements:
+    # Linked Issues Verification PR Summary
 
-    ### 🎨 UI Changes Table
-    | Component | Change Type | Description | User Benefit |
-    |-----------|-------------|-------------|-------------|
-    | Navigation | Redesign | Simplified menu structure | Easier navigation |
-    | Forms | Enhancement | Inline validation | Immediate feedback |
-    | Dashboard | New Feature | Widget customization | Personalized experience |
-    | Buttons | Consistency | Unified design system | Better brand coherence |
+    ## 🔗 Issue Resolution Analysis
+    - **Linked Issues**: Connected GitHub issues, requirements fulfillment
+    - **Acceptance Criteria**: User story completion, feature requirements met
+    - **Bug Resolution**: Root cause analysis, fix validation, regression testing
+    - **Feature Implementation**: Scope adherence, edge case coverage
+    - **Requirements Traceability**: Business logic alignment, stakeholder approval
 
-    ### ♿ Accessibility Improvements Table
-    | Feature | WCAG Level | Implementation | Impact |
-    |---------|-----------|--------------|---------|
-    | Keyboard Navigation | AA | Tab index optimization | Screen reader friendly |
-    | Color Contrast | AAA | High contrast theme | Visually impaired users |
-    | Alt Text | A | Image descriptions | Screen reader support |
-    | Focus Indicators | AA | Visible focus rings | Keyboard users |
+    ### 🎯 Issue Resolution Table
+    | Issue | Type | Status | Requirements Met | Acceptance Criteria |
+    |-------|------|--------|------------------|-------------------|
+    | #123 | Bug | ✅ Resolved | All | 5/5 criteria met |
+    | #456 | Feature | ✅ Resolved | All | 8/8 criteria met |
+    | #789 | Enhancement | ⚠️ Partial | 4/5 | 3/4 criteria met |
 
-    Highlight any design system consistency gains achieved.
+    ### 🧪 Validation Testing Table
+    | Issue | Test Coverage | Manual Testing | Automated Testing | Status |
+    |-------|---------------|---------------|-------------------|--------|
+    | #123 | 95% | ✅ Passed | ✅ Passed | Ready |
+    | #456 | 88% | ✅ Passed | ✅ Passed | Ready |
+    | #789 | 75% | ⚠️ Partial | ✅ Passed | Needs review |
+
+    Focus on complete issue resolution and thorough validation.
+
+  auto_review:
+    enabled: true
+
+chat:
+  auto_reply: true

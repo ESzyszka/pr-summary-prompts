@@ -1,41 +1,58 @@
-# yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
+# Docs: https://docs.coderabbit.ai/getting-started/configure-coderabbit
+
+language: en-US
 reviews:
+  # Comprehensive Multi-Focus Summary Template
   high_level_summary_instructions: >-
-    # Documentation Updates PR Summary
-    
-    Analyze this pull request and provide a comprehensive summary focusing on:
-    
-    ## 📚 Summary Format
-    - **Documentation Scope**: What areas of documentation were improved
-    - **Content Changes**: New guides, updated instructions, or fixed information
-    - **Structure Improvements**: Better organization or navigation
-    - **Code Examples**: Updated or new code samples and tutorials
-    - **Accessibility**: Improvements for documentation readability and accessibility
-    
-    ## 🎯 Focus Areas
-    - API documentation updates
-    - Setup and installation guides
-    - Code examples and tutorials
-    - Architecture and design documentation
-    - Contributing guidelines and processes
-    
-    ## 📊 Output Style
-    Highlight documentation improvements using tables to organize the changes:
+    # Comprehensive PR Summary
 
-    ### 📚 Documentation Changes Table
-    | Document | Change Type | Description | Impact |
-    |----------|-------------|-------------|--------|
-    | API Reference | Updated | Added new endpoints | Complete API coverage |
-    | Getting Started | New | Quick setup guide | Faster onboarding |
-    | Architecture | Restructured | Better organization | Easier navigation |
-    | Examples | Enhanced | More code samples | Better understanding |
+    ## 🎯 Multi-Dimensional Analysis
+    Analyze this pull request across multiple dimensions for complete coverage:
 
-    ### 👥 Developer Experience Table
-    | Area | Before | After | Improvement |
-    |------|--------|-------|-------------|
-    | Setup Time | 45 min | 15 min | 67% faster |
-    | Code Examples | 12 | 25 | 108% increase |
-    | Search Results | Poor | Excellent | Better discoverability |
-    | Mobile Reading | Difficult | Optimized | Responsive design |
+    ### 🔒 Security Assessment
+    | Security Domain | Risk Level | Implementation | Status |
+    |----------------|------------|-----------------|---------|
+    | Authentication | Low/Med/High | Description | ✅/⚠️/❌ |
+    | Data Protection | Low/Med/High | Description | ✅/⚠️/❌ |
+    | Input Validation | Low/Med/High | Description | ✅/⚠️/❌ |
 
-    Explain how these changes make the project more accessible to new contributors and ensure information accuracy.
+    ### ⚡ Performance Impact
+    | Metric | Before | After | Change | Status |
+    |--------|--------|-------|--------|---------|
+    | Load Time | 2.5s | 1.8s | -28% | ✅ |
+    | Memory Usage | 128MB | 95MB | -26% | ✅ |
+    | Bundle Size | 2.1MB | 1.6MB | -24% | ✅ |
+
+    ### 🧪 Test Coverage
+    | Coverage Type | Before | After | Change | Target |
+    |---------------|--------|-------|--------|---------|
+    | Line Coverage | 72% | 85% | +13% | >80% |
+    | Branch Coverage | 65% | 78% | +13% | >75% |
+    | Function Coverage | 80% | 92% | +12% | >90% |
+
+    ### ⚠️ Breaking Changes
+    | Component | Change | Impact | Migration |
+    |-----------|--------|--------|-----------|
+    | API endpoint | Modified | High | Update clients |
+    | Config format | Changed | Medium | Update env vars |
+
+    ### 📦 Dependencies
+    | Package | Old | New | Type | Security |
+    |---------|-----|-----|------|----------|
+    | react | 17.0.2 | 18.2.0 | Major | None |
+    | lodash | 4.17.20 | 4.17.21 | Patch | CVE fix |
+
+    ### 📚 Documentation
+    | Document | Status | Completeness | Quality |
+    |----------|--------|--------------|---------|
+    | API Docs | ✅ Updated | 95% | High |
+    | README | ✅ Updated | 100% | High |
+    | Changelog | ✅ Updated | 100% | High |
+
+    Provide a holistic view covering security, performance, testing, breaking changes, dependencies, and documentation.
+
+  auto_review:
+    enabled: true
+
+chat:
+  auto_reply: true

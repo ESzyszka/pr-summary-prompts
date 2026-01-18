@@ -1,45 +1,47 @@
-# yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
+# Docs: https://docs.coderabbit.ai/getting-started/configure-coderabbit
+
+language: en-US
 reviews:
+  # Reviewer Guidance Summary Template
   high_level_summary_instructions: >-
-    # Dependency Updates PR Summary
-    
-    Analyze this pull request and provide a comprehensive summary focusing on:
-    
-    ## 📦 Summary Format
-    - **Updated Dependencies**: Which packages were upgraded and to what versions
-    - **Security Improvements**: Vulnerabilities fixed by the updates
-    - **Breaking Changes**: Any API changes that required code modifications
-    - **New Features**: Additional functionality available from updates
-    - **Compatibility**: Node.js, browser, or framework version requirements
-    
-    ## 🎯 Focus Areas
-    - Major vs minor vs patch version updates
-    - Security vulnerability fixes (CVEs)
-    - Performance improvements from updates
-    - Deprecated feature removals
-    - New dependency additions
-    
-    ## 📊 Output Style
-    Group by update type using tables to organize dependency information:
+    # Reviewer Guidance PR Summary
 
-    ### 📦 Dependency Updates Table
-    | Package | Old Version | New Version | Update Type | Breaking |
-    |---------|-------------|-------------|-------------|----------|
-    | express | 4.17.1 | 4.18.2 | Security | No |
-    | lodash | 4.17.19 | 4.17.21 | Security | No |
-    | react | 17.0.2 | 18.2.0 | Major | Yes |
-    | typescript | 4.5.0 | 5.0.0 | Major | Yes |
+    ## 👥 Review Focus Areas
+    - **Code Quality**: Architecture, patterns, maintainability, readability
+    - **Security Considerations**: Vulnerabilities, best practices, compliance
+    - **Performance Impact**: Optimization opportunities, bottlenecks, scaling
+    - **Testing Strategy**: Coverage, test quality, edge cases, automation
+    - **Business Logic**: Requirements alignment, user experience, functionality
 
-    ### 🔒 Security Fixes Table
-    | CVE | Severity | Package | Description | Fixed In |
-    |-----|----------|---------|-------------|-----------|
-    | CVE-2023-1234 | High | express | Path traversal | 4.18.2 |
-    | CVE-2023-5678 | Medium | lodash | Prototype pollution | 4.17.21 |
+    ### 🔍 Review Checklist Table
+    | Review Area | Priority | Complexity | Time Estimate | Reviewer Skills |
+    |-------------|----------|------------|---------------|-----------------|
+    | Security Review | High | Medium | 30 min | Security expertise |
+    | Performance Review | Medium | High | 45 min | Performance tuning |
+    | Code Architecture | High | High | 60 min | Senior developer |
+    | UI/UX Review | Medium | Low | 20 min | Design knowledge |
+    | Database Changes | High | Medium | 25 min | DBA/Backend expert |
 
-    ### 🎆 New Features Table
-    | Package | Feature | Benefit |
-    |---------|---------|----------|
-    | React 18 | Concurrent features | Better performance |
-    | TypeScript 5 | Decorators support | Modern syntax |
+    ### 📋 Specific Review Points
+    | File/Component | What to Review | Why Important | Suggested Reviewer |
+    |----------------|----------------|---------------|-------------------|
+    | auth.service.ts | Token validation logic | Security critical | @security-team |
+    | user.controller.ts | Input validation | Data integrity | @backend-lead |
+    | payment.component.tsx | Error handling | User experience | @frontend-lead |
+    | database/migrations/ | Schema changes | Data safety | @dba-team |
 
-    Highlight breaking changes prominently and explain migration requirements.
+    ### ⚠️ Risk Assessment Table
+    | Risk Category | Level | Mitigation | Review Required |
+    |---------------|-------|------------|-----------------|
+    | Breaking Changes | High | Version compatibility check | Yes |
+    | Security Impact | Medium | Security audit | Yes |
+    | Performance Risk | Low | Load testing | Optional |
+    | Data Migration | High | Rollback plan review | Yes |
+
+    Focus on guiding reviewers to the most critical areas and potential risks.
+
+  auto_review:
+    enabled: true
+
+chat:
+  auto_reply: true

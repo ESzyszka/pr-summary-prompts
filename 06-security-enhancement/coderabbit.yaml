@@ -1,39 +1,35 @@
-# yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
+# Docs: https://docs.coderabbit.ai/getting-started/configure-coderabbit
+
+language: en-US
 reviews:
+  # Dependencies Summary Template
   high_level_summary_instructions: >-
-    # Security Enhancement PR Summary
-    
-    Analyze this pull request and provide a comprehensive summary focusing on:
-    
-    ## 🔒 Summary Format
-    - **Security Issue Addressed**: What vulnerability or risk was mitigated
-    - **Security Measures Implemented**: New protections and safeguards added
-    - **Impact Assessment**: Potential impact if the issue wasn't fixed
-    - **Implementation Details**: How the security fix works
-    - **Compliance**: Any regulatory or standard compliance improvements
-    
-    ## 🛡️ Focus Areas
-    - Authentication and authorization improvements
-    - Input validation and sanitization
-    - Data encryption and secure storage
-    - Access control modifications
-    - Security headers and configurations
-    
-    ## 📊 Output Style
-    Start with the security risk level and organize information using tables:
+    # Dependencies Summary PR
 
-    ### 🔒 Security Risk Assessment Table
-    | Vulnerability | Severity | CVSS Score | Impact | Mitigation |
-    |---------------|----------|------------|--------|------------|
-    | SQL Injection | High | 8.1 | Data breach | Parameterized queries |
-    | XSS | Medium | 6.2 | Session hijacking | Input sanitization |
-    | Weak Auth | High | 7.8 | Account takeover | 2FA implementation |
+    ## 📦 Dependency Impact Analysis
+    - **Updated Packages**: Version changes, security patches, feature updates
+    - **New Dependencies**: Added packages, justification, and impact assessment
+    - **Removed Dependencies**: Deprecated packages and replacement strategies
+    - **Vulnerability Fixes**: Security patches and CVE resolutions
+    - **Bundle Size Impact**: Size changes and performance implications
 
-    ### 🔧 Security Enhancements Table
-    | Component | Enhancement | Implementation | Compliance |
-    |-----------|-------------|----------------|------------|
-    | Authentication | 2FA | TOTP integration | SOC 2 |
-    | Data Storage | Encryption | AES-256 | GDPR |
-    | API Access | Rate limiting | Redis-based throttling | OWASP |
+    ### 📦 Dependencies Update Table
+    | Package | Old Version | New Version | Update Type | Security | Size Impact |
+    |---------|-------------|-------------|-------------|----------|-------------|
+    | react | 17.0.2 | 18.2.0 | Major | None | +50KB |
+    | lodash | 4.17.20 | 4.17.21 | Patch | CVE-2021-23337 | No change |
+    | express | 4.17.1 | 4.18.2 | Minor | Multiple CVEs | -15KB |
 
-    Highlight any user-facing changes or migration requirements for enhanced security.
+    ### 🔒 Security Vulnerability Fixes
+    | CVE ID | Severity | Package | Description | Fixed Version |
+    |--------|----------|---------|-------------|---------------|
+    | CVE-2022-0691 | High | url-parse | DoS via malformed URL | 1.5.9 |
+    | CVE-2021-44906 | Critical | minimist | Prototype pollution | 1.2.6 |
+
+    Focus on security improvements, breaking changes, and migration requirements.
+
+  auto_review:
+    enabled: true
+
+chat:
+  auto_reply: true

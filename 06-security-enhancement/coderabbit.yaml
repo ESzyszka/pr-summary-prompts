@@ -1,23 +1,71 @@
-# yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
+# Docs: https://docs.coderabbit.ai/getting-started/configure-coderabbit
+
+language: en-US
 reviews:
+  # Test Coverage Summary Template
   high_level_summary_instructions: >-
-    # Security Enhancement PR Summary
-    
-    Analyze this pull request and provide a comprehensive summary focusing on:
-    
-    ## 🔒 Summary Format
-    - **Security Issue Addressed**: What vulnerability or risk was mitigated
-    - **Security Measures Implemented**: New protections and safeguards added
-    - **Impact Assessment**: Potential impact if the issue wasn't fixed
-    - **Implementation Details**: How the security fix works
-    - **Compliance**: Any regulatory or standard compliance improvements
-    
-    ## 🛡️ Focus Areas
-    - Authentication and authorization improvements
-    - Input validation and sanitization
-    - Data encryption and secure storage
-    - Access control modifications
-    - Security headers and configurations
-    
-    ## 📊 Output Style
-    Start with the security risk level, explain the technical implementation clearly, and highlight any user-facing changes or migration requirements for enhanced security.
+    # Test Coverage PR Summary
+
+    Analyze this pull request with a focus on test coverage and quality assurance:
+
+    ## 🧪 Test Coverage Analysis
+    - **Coverage Metrics**: Line, branch, function, and statement coverage percentages
+    - **Test Categories**: Unit, integration, end-to-end, and performance tests
+    - **Quality Improvements**: Test reliability, maintainability, and execution time
+    - **Edge Cases**: Boundary conditions, error scenarios, and exceptional flows
+    - **Test Infrastructure**: CI/CD integration, test utilities, and automation
+
+    ## 📊 Test Coverage Metrics Assessment
+    Use this table format to track testing improvements:
+
+    ### 🧪 Coverage Metrics Table
+    | Coverage Type | Before | After | Change | Target | Status |
+    |---------------|--------|-------|--------|---------|---------|
+    | Line Coverage | 72% | 85% | +13% | >80% | ✅ Met |
+    | Branch Coverage | 65% | 78% | +13% | >75% | ✅ Met |
+    | Function Coverage | 80% | 92% | +12% | >90% | ✅ Met |
+    | Statement Coverage | 75% | 88% | +13% | >85% | ✅ Met |
+    | Integration Coverage | 45% | 68% | +23% | >60% | ✅ Met |
+
+    ### 🔧 Test Suite Improvements Table
+    | Component | Test Type | Tests Added | Coverage Gain | Quality Impact |
+    |-----------|-----------|-------------|---------------|----------------|
+    | User Service | Unit | 15 new tests | +18% | High - Edge cases covered |
+    | API Endpoints | Integration | 8 new tests | +25% | Medium - Error handling |
+    | Payment Flow | E2E | 5 new tests | +15% | High - Critical path |
+    | Error Handling | Unit | 12 new tests | +20% | High - Exception scenarios |
+    | Database Layer | Integration | 10 new tests | +22% | Medium - Data validation |
+
+    ### 🎯 Test Quality Metrics
+    | Metric | Before | After | Improvement | Target |
+    |--------|--------|-------|-------------|---------|
+    | Test Execution Time | 4.5min | 3.2min | -29% | <3.5min |
+    | Flaky Test Rate | 8% | 2% | -75% | <3% |
+    | Test Maintainability | 6/10 | 8/10 | +33% | >7/10 |
+    | Mock Coverage | 60% | 85% | +42% | >80% |
+    | Assertion Quality | 70% | 90% | +29% | >85% |
+
+    ### 🚀 CI/CD Test Integration
+    | Pipeline Stage | Tests Run | Duration | Success Rate | Performance |
+    |----------------|-----------|----------|--------------|-------------|
+    | Pre-commit | Unit + Lint | 45s | 98% | ✅ Fast |
+    | Pull Request | Unit + Integration | 3.2min | 95% | ✅ Acceptable |
+    | Staging Deploy | Full Suite | 12min | 97% | ✅ Comprehensive |
+    | Production | Smoke Tests | 2min | 99% | ✅ Reliable |
+
+    Focus on comprehensive coverage, test reliability, and maintainable test architecture.
+
+  auto_review:
+    enabled: true
+  tools:
+    eslint:
+      enabled: true
+    ruff:
+      enabled: true
+
+chat:
+  auto_reply: true
+
+knowledge_base:
+  web_search:
+    enabled: true

@@ -1,23 +1,35 @@
-# yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
+# Docs: https://docs.coderabbit.ai/getting-started/configure-coderabbit
+
+language: en-US
 reviews:
+  # Dependencies Summary Template
   high_level_summary_instructions: >-
-    # Testing Improvements PR Summary
-    
-    Analyze this pull request and provide a comprehensive summary focusing on:
-    
-    ## 🧪 Summary Format
-    - **Testing Coverage**: What new tests were added or improved
-    - **Test Categories**: Unit, integration, end-to-end, performance tests
-    - **Quality Improvements**: Better assertions, mocking, or test structure
-    - **CI/CD Integration**: Pipeline improvements and automated testing
-    - **Coverage Metrics**: Coverage percentage changes and gap analysis
-    
-    ## 🎯 Focus Areas
-    - New test suites and test cases
-    - Mock and stub implementations
-    - Test utilities and helpers
-    - Performance and load testing
-    - Accessibility and visual regression tests
-    
-    ## 📊 Output Style
-    Highlight testing strategy improvements, show coverage improvements with numbers, and explain how these tests prevent regressions or catch edge cases.
+    # Dependencies Summary PR
+
+    ## 📦 Dependency Impact Analysis
+    - **Updated Packages**: Version changes, security patches, feature updates
+    - **New Dependencies**: Added packages, justification, and impact assessment
+    - **Removed Dependencies**: Deprecated packages and replacement strategies
+    - **Vulnerability Fixes**: Security patches and CVE resolutions
+    - **Bundle Size Impact**: Size changes and performance implications
+
+    ### 📦 Dependencies Update Table
+    | Package | Old Version | New Version | Update Type | Security | Size Impact |
+    |---------|-------------|-------------|-------------|----------|-------------|
+    | react | 17.0.2 | 18.2.0 | Major | None | +50KB |
+    | lodash | 4.17.20 | 4.17.21 | Patch | CVE-2021-23337 | No change |
+    | express | 4.17.1 | 4.18.2 | Minor | Multiple CVEs | -15KB |
+
+    ### 🔒 Security Vulnerability Fixes
+    | CVE ID | Severity | Package | Description | Fixed Version |
+    |--------|----------|---------|-------------|---------------|
+    | CVE-2022-0691 | High | url-parse | DoS via malformed URL | 1.5.9 |
+    | CVE-2021-44906 | Critical | minimist | Prototype pollution | 1.2.6 |
+
+    Focus on security improvements, breaking changes, and migration requirements.
+
+  auto_review:
+    enabled: true
+
+chat:
+  auto_reply: true

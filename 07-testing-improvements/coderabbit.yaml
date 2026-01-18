@@ -20,4 +20,22 @@ reviews:
     - Accessibility and visual regression tests
     
     ## 📊 Output Style
-    Highlight testing strategy improvements, show coverage improvements with numbers, and explain how these tests prevent regressions or catch edge cases.
+    Highlight testing strategy improvements using tables to organize coverage data:
+
+    ### 🧪 Coverage Metrics Table
+    | Test Type | Before | After | Change | Target |
+    |-----------|--------|-------|--------|---------|
+    | Unit Tests | 75% | 85% | +10% | >90% |
+    | Integration | 60% | 78% | +18% | >80% |
+    | E2E | 45% | 65% | +20% | >70% |
+    | Overall | 68% | 82% | +14% | >85% |
+
+    ### 📝 Test Suite Changes Table
+    | Component | Tests Added | Test Type | Purpose |
+    |-----------|-------------|-----------|----------|
+    | UserService | 15 | Unit | Edge case validation |
+    | AuthFlow | 8 | Integration | Complete user journey |
+    | PaymentAPI | 12 | Unit + Integration | Error handling |
+    | UI Components | 20 | Visual Regression | Layout consistency |
+
+    Explain how these tests prevent regressions and catch edge cases.

@@ -20,4 +20,22 @@ reviews:
     - Network request optimizations
     
     ## 📊 Output Style
-    Lead with measurable improvements (response times, memory usage, etc.), explain the technical approach, and highlight any monitoring or profiling tools used to validate the improvements.
+    Lead with measurable improvements using tables to showcase performance gains:
+
+    ### ⚡ Performance Metrics Table
+    | Metric | Before | After | Improvement | Target |
+    |--------|--------|-------|-------------|--------|
+    | Response Time | 2.5s | 800ms | 68% faster | < 1s |
+    | Memory Usage | 512MB | 256MB | 50% reduction | < 300MB |
+    | DB Query Time | 300ms | 50ms | 83% faster | < 100ms |
+    | Throughput | 100 req/s | 350 req/s | 250% increase | > 300 req/s |
+
+    ### 🔧 Optimization Techniques Table
+    | Area | Technique | Implementation | Impact |
+    |------|-----------|----------------|--------|
+    | Database | Query optimization | Added indexes, query rewrite | High |
+    | Caching | Redis implementation | User session caching | Medium |
+    | Algorithm | O(n²) → O(n log n) | Replaced bubble sort | High |
+    | Network | Request batching | GraphQL data loader | Medium |
+
+    Highlight any monitoring or profiling tools used to validate the improvements.

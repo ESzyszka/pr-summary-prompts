@@ -20,4 +20,20 @@ reviews:
     - Security headers and configurations
     
     ## 📊 Output Style
-    Start with the security risk level, explain the technical implementation clearly, and highlight any user-facing changes or migration requirements for enhanced security.
+    Start with the security risk level and organize information using tables:
+
+    ### 🔒 Security Risk Assessment Table
+    | Vulnerability | Severity | CVSS Score | Impact | Mitigation |
+    |---------------|----------|------------|--------|------------|
+    | SQL Injection | High | 8.1 | Data breach | Parameterized queries |
+    | XSS | Medium | 6.2 | Session hijacking | Input sanitization |
+    | Weak Auth | High | 7.8 | Account takeover | 2FA implementation |
+
+    ### 🔧 Security Enhancements Table
+    | Component | Enhancement | Implementation | Compliance |
+    |-----------|-------------|----------------|------------|
+    | Authentication | 2FA | TOTP integration | SOC 2 |
+    | Data Storage | Encryption | AES-256 | GDPR |
+    | API Access | Rate limiting | Redis-based throttling | OWASP |
+
+    Highlight any user-facing changes or migration requirements for enhanced security.

@@ -20,4 +20,20 @@ reviews:
     - Security vulnerabilities patched
     
     ## 📊 Output Style
-    Start with the bug impact, explain the technical solution clearly, and highlight any preventive measures added to avoid similar issues in the future.
+    Start with the bug impact, explain the technical solution clearly, and include tables to organize the information:
+
+    ### 🐛 Bug Analysis Table
+    | Aspect | Before | After | Impact |
+    |--------|--------|-------|--------|
+    | Behavior | User login fails silently | Shows clear error message | High |
+    | Performance | 5s load time | 1s load time | Medium |
+    | Data | Inconsistent validation | Unified validation rules | High |
+
+    ### 🔧 Files Changed Table
+    | File | Change Type | Description | Lines Changed |
+    |------|-------------|-------------|---------------|
+    | auth.js | Bug Fix | Fixed null pointer exception | 15 |
+    | validation.js | Enhancement | Added input sanitization | 25 |
+    | user.test.js | Test | Added edge case coverage | 40 |
+
+    Highlight any preventive measures added to avoid similar issues in the future.

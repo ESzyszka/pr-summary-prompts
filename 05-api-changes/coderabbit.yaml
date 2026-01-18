@@ -20,4 +20,20 @@ reviews:
     - Rate limiting and pagination updates
     
     ## 📊 Output Style
-    Start with breaking changes (if any), then cover new features, and include examples of request/response formats where relevant. Highlight migration paths for existing clients.
+    Start with breaking changes (if any), then organize information using tables:
+
+    ### 🔌 API Changes Summary Table
+    | Endpoint | Method | Change Type | Breaking | Description |
+    |----------|--------|-------------|----------|-------------|
+    | /users/{id} | PUT | Modified | Yes | Added required field 'email' |
+    | /posts | POST | New | No | Create post functionality |
+    | /login | POST | Deprecated | Yes | Use /auth/login instead |
+
+    ### 📋 Schema Changes Table
+    | Field | Old Type | New Type | Required | Migration |
+    |-------|----------|----------|----------|----------|
+    | user.email | - | string | Yes | Add email field |
+    | post.tags | string | string[] | No | Split comma-separated |
+    | auth.token | string | object | Yes | Use token.access_token |
+
+    Include examples of request/response formats and highlight migration paths for existing clients.

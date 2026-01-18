@@ -20,4 +20,20 @@ reviews:
     - Dependencies added or updated
     
     ## 📊 Output Style
-    Use clear sections with bullet points and emojis for readability. Highlight any breaking changes or migration requirements.
+    Use clear sections with bullet points and emojis for readability. Include tables where appropriate to organize information clearly:
+
+    ### 📋 Changes Summary Table
+    | Component | Type | Description | Impact |
+    |-----------|------|-------------|--------|
+    | API | New | Added user management endpoints | High |
+    | Frontend | Modified | Updated login component | Medium |
+    | Database | Schema | Added user_roles table | High |
+
+    ### 🧪 Testing Coverage Table
+    | Test Type | Files Added/Modified | Coverage Area |
+    |-----------|---------------------|---------------|
+    | Unit | user.test.js | User model validation |
+    | Integration | auth.integration.test.js | Authentication flow |
+    | E2E | login.e2e.test.js | Complete user journey |
+
+    Highlight any breaking changes or migration requirements in separate sections.

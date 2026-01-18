@@ -20,4 +20,22 @@ reviews:
     - Contributing guidelines and processes
     
     ## 📊 Output Style
-    Highlight how these documentation changes improve developer experience, make the project more accessible to new contributors, and ensure information accuracy.
+    Highlight documentation improvements using tables to organize the changes:
+
+    ### 📚 Documentation Changes Table
+    | Document | Change Type | Description | Impact |
+    |----------|-------------|-------------|--------|
+    | API Reference | Updated | Added new endpoints | Complete API coverage |
+    | Getting Started | New | Quick setup guide | Faster onboarding |
+    | Architecture | Restructured | Better organization | Easier navigation |
+    | Examples | Enhanced | More code samples | Better understanding |
+
+    ### 👥 Developer Experience Table
+    | Area | Before | After | Improvement |
+    |------|--------|-------|-------------|
+    | Setup Time | 45 min | 15 min | 67% faster |
+    | Code Examples | 12 | 25 | 108% increase |
+    | Search Results | Poor | Excellent | Better discoverability |
+    | Mobile Reading | Difficult | Optimized | Responsive design |
+
+    Explain how these changes make the project more accessible to new contributors and ensure information accuracy.

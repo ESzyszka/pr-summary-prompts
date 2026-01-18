@@ -20,4 +20,21 @@ reviews:
     - Enhanced error handling patterns
     
     ## 📊 Output Style
-    Emphasize the before/after benefits, highlight any breaking changes, and explain how this refactoring prepares the codebase for future features.
+    Emphasize the before/after benefits using tables to clearly show improvements:
+
+    ### ♻️ Refactoring Impact Table
+    | Metric | Before | After | Improvement |
+    |--------|--------|-------|-------------|
+    | Cyclomatic Complexity | 15 | 8 | 47% reduction |
+    | Lines of Code | 500 | 350 | 30% reduction |
+    | Code Duplication | 25% | 5% | 80% reduction |
+    | Test Coverage | 60% | 85% | 25% increase |
+
+    ### 🏗️ Architecture Changes Table
+    | Component | Old Pattern | New Pattern | Benefit |
+    |-----------|-------------|-------------|---------|
+    | Data Access | Direct DB calls | Repository pattern | Better testability |
+    | Error Handling | Try-catch everywhere | Centralized handler | Consistent UX |
+    | Validation | Inline checks | Validator classes | Reusable logic |
+
+    Highlight any breaking changes and explain how this refactoring prepares the codebase for future features.

@@ -20,4 +20,22 @@ reviews:
     - Performance optimizations for UI
     
     ## 📊 Output Style
-    Describe visual changes clearly, explain the user benefit of each improvement, and highlight any design system consistency or accessibility gains achieved.
+    Describe visual changes clearly using tables to organize the improvements:
+
+    ### 🎨 UI Changes Table
+    | Component | Change Type | Description | User Benefit |
+    |-----------|-------------|-------------|-------------|
+    | Navigation | Redesign | Simplified menu structure | Easier navigation |
+    | Forms | Enhancement | Inline validation | Immediate feedback |
+    | Dashboard | New Feature | Widget customization | Personalized experience |
+    | Buttons | Consistency | Unified design system | Better brand coherence |
+
+    ### ♿ Accessibility Improvements Table
+    | Feature | WCAG Level | Implementation | Impact |
+    |---------|-----------|--------------|---------|
+    | Keyboard Navigation | AA | Tab index optimization | Screen reader friendly |
+    | Color Contrast | AAA | High contrast theme | Visually impaired users |
+    | Alt Text | A | Image descriptions | Screen reader support |
+    | Focus Indicators | AA | Visible focus rings | Keyboard users |
+
+    Highlight any design system consistency gains achieved.

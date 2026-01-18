@@ -1,23 +1,68 @@
-# yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
+# Docs: https://docs.coderabbit.ai/getting-started/configure-coderabbit
+
+language: en-US
 reviews:
+  # Breaking Changes Summary Template
   high_level_summary_instructions: >-
-    # Performance Optimization PR Summary
-    
-    Analyze this pull request and provide a comprehensive summary focusing on:
-    
-    ## ⚡ Summary Format
-    - **Performance Issue**: What bottleneck was identified
-    - **Optimization Strategy**: How performance was improved
-    - **Metrics Impact**: Before/after performance measurements
-    - **Implementation Details**: Technical changes made
-    - **Trade-offs**: Any compromises or considerations
-    
-    ## 🎯 Focus Areas
-    - Database query optimizations
-    - Caching implementations
-    - Algorithm improvements
-    - Memory usage reductions
-    - Network request optimizations
-    
-    ## 📊 Output Style
-    Lead with measurable improvements (response times, memory usage, etc.), explain the technical approach, and highlight any monitoring or profiling tools used to validate the improvements.
+    # Breaking Changes PR Summary
+
+    Analyze this pull request with a focus on identifying and documenting breaking changes:
+
+    ## ⚠️ Breaking Changes Analysis
+    - **API Changes**: Modified endpoints, removed parameters, changed response formats
+    - **Interface Changes**: Updated function signatures, removed methods, changed return types
+    - **Configuration Changes**: Environment variables, config files, deployment requirements
+    - **Dependency Updates**: Major version bumps, removed packages, changed APIs
+    - **Database Changes**: Schema modifications, data migrations, constraint changes
+
+    ## 🚨 Breaking Changes Impact Assessment
+    Use this table format to document all breaking changes:
+
+    ### ⚠️ Breaking Changes Table
+    | Component | Change Type | Before | After | Impact | Migration Required |
+    |-----------|-------------|--------|-------|--------|--------------------|
+    | User API | Removed endpoint | GET /users | N/A | High | Use GET /v2/users |
+    | Auth Token | Format change | JWT string | Object {token, expiry} | Medium | Update client parsing |
+    | Database | Column removal | user.nickname | N/A | Low | Remove references |
+    | Config | Env var rename | API_KEY | SERVICE_API_KEY | Medium | Update deployment |
+
+    ### 🔄 Migration Guide Table
+    | Change | Affected Users | Action Required | Timeline | Support Until |
+    |--------|----------------|-----------------|----------|---------------|
+    | API v1 deprecation | External clients | Migrate to v2 | 3 months | Dec 2024 |
+    | Config format | DevOps teams | Update env vars | 1 month | Nov 2024 |
+    | Library update | Developers | Update imports | 2 weeks | Immediate |
+    | Database schema | All environments | Run migration script | 1 week | N/A |
+
+    ### 📋 Compatibility Matrix
+    | Version | API v1 | API v2 | Old Config | New Config | Status |
+    |---------|--------|--------|------------|------------|---------|
+    | 1.0.x | ✅ | ❌ | ✅ | ❌ | Legacy |
+    | 1.1.x | ✅ | ✅ | ✅ | ✅ | Transition |
+    | 2.0.x | ⚠️ Deprecated | ✅ | ❌ | ✅ | Current |
+    | 2.1.x | ❌ | ✅ | ❌ | ✅ | Future |
+
+    ### 🛠️ Rollback Plan
+    | Component | Rollback Method | Time Required | Data Loss Risk |
+    |-----------|-----------------|---------------|----------------|
+    | API Changes | Deploy previous tag | 5 minutes | None |
+    | Database | Restore from backup | 30 minutes | ⚠️ Recent data |
+    | Config | Revert env vars | 2 minutes | None |
+    | Dependencies | Package downgrade | 10 minutes | None |
+
+    Focus on clear migration paths, deprecation timelines, and backward compatibility strategies.
+
+  auto_review:
+    enabled: true
+  tools:
+    eslint:
+      enabled: true
+    semgrep:
+      enabled: true
+
+chat:
+  auto_reply: true
+
+knowledge_base:
+  web_search:
+    enabled: true

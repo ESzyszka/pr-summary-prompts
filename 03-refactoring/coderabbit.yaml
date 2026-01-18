@@ -1,23 +1,67 @@
-# yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
+# Docs: https://docs.coderabbit.ai/getting-started/configure-coderabbit
+
+language: en-US
 reviews:
+  # Performance Impact Summary Template
   high_level_summary_instructions: >-
-    # Refactoring PR Summary
-    
-    Analyze this pull request and provide a comprehensive summary focusing on:
-    
-    ## ♻️ Summary Format
-    - **Refactoring Goals**: What improvements were made and why
-    - **Code Structure Changes**: How the architecture was improved
-    - **Design Patterns**: New patterns introduced or improved
-    - **Performance Impact**: Any performance improvements achieved
-    - **Maintainability**: How this makes the code easier to maintain
-    
-    ## 🔧 Focus Areas
-    - Function/class extraction and simplification
-    - Code duplication removal
-    - Improved naming conventions
-    - Better separation of concerns
-    - Enhanced error handling patterns
-    
-    ## 📊 Output Style
-    Emphasize the before/after benefits, highlight any breaking changes, and explain how this refactoring prepares the codebase for future features.
+    # Performance Impact PR Summary
+
+    Analyze this pull request with a focus on performance implications and optimizations:
+
+    ## ⚡ Performance Analysis Overview
+    - **Execution Speed**: Runtime performance improvements or degradations
+    - **Memory Usage**: Memory allocation, garbage collection, and optimization
+    - **Network Performance**: API calls, data transfer, and caching strategies
+    - **Database Performance**: Query optimization, indexing, and connection pooling
+    - **Bundle Size**: JavaScript/CSS bundle size impact and code splitting
+
+    ## 📊 Performance Metrics Assessment
+    Use this table format to track performance improvements:
+
+    ### ⚡ Performance Benchmarks Table
+    | Metric | Before | After | Change | Target | Status |
+    |--------|--------|-------|--------|---------|---------|
+    | Page Load Time | 3.2s | 1.8s | -44% | <2s | ✅ Met |
+    | Memory Usage | 128MB | 95MB | -26% | <100MB | ✅ Met |
+    | Bundle Size | 2.1MB | 1.6MB | -24% | <1.8MB | ✅ Met |
+    | API Response | 450ms | 180ms | -60% | <200ms | ✅ Met |
+    | Database Query | 850ms | 320ms | -62% | <400ms | ✅ Met |
+
+    ### 🔧 Performance Optimizations Table
+    | Component | Optimization Type | Implementation | Impact | Effort |
+    |-----------|------------------|----------------|---------|---------|
+    | Database | Query optimization | Added composite index | High | Medium |
+    | Frontend | Code splitting | Dynamic imports | Medium | Low |
+    | Images | Compression | WebP format + lazy loading | High | Low |
+    | Caching | Redis implementation | User session caching | Medium | High |
+    | API | Response compression | Gzip + minification | Medium | Low |
+
+    ### 📈 Performance Testing Results
+    | Test Type | Tool | Before | After | Improvement |
+    |-----------|------|--------|-------|-------------|
+    | Lighthouse | Chrome DevTools | 65 | 92 | +42% |
+    | Load Testing | k6 | 100 req/s | 300 req/s | +200% |
+    | Memory Profiling | Chrome DevTools | 15MB heap | 8MB heap | -47% |
+    | Bundle Analysis | webpack-bundle-analyzer | 2.1MB | 1.6MB | -24% |
+
+    Focus on measurable performance gains, optimization techniques used, and any trade-offs made.
+
+  auto_review:
+    enabled: true
+  tools:
+    ast-grep:
+      essential_rules: true
+    shellcheck:
+      enabled: true
+    eslint:
+      enabled: true
+    gitleaks:
+      enabled: true
+
+chat:
+  auto_reply: true
+
+knowledge_base:
+  opt_out: false
+  web_search:
+    enabled: true

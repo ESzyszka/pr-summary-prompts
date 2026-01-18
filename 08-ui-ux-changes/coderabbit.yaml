@@ -1,23 +1,38 @@
-# yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
+# Docs: https://docs.coderabbit.ai/getting-started/configure-coderabbit
+
+language: en-US
 reviews:
+  # Documentation Completeness Summary Template
   high_level_summary_instructions: >-
-    # UI/UX Changes PR Summary
-    
-    Analyze this pull request and provide a comprehensive summary focusing on:
-    
-    ## 🎨 Summary Format
-    - **Visual Changes**: What UI elements were modified or added
-    - **User Experience**: How interactions and workflows were improved
-    - **Design System**: Components, patterns, and consistency improvements
-    - **Accessibility**: Improvements for users with disabilities
-    - **Responsive Design**: Mobile and tablet experience enhancements
-    
-    ## 🎯 Focus Areas
-    - New components and design patterns
-    - Interactive elements and animations
-    - Form improvements and validation UX
-    - Navigation and information architecture
-    - Performance optimizations for UI
-    
-    ## 📊 Output Style
-    Describe visual changes clearly, explain the user benefit of each improvement, and highlight any design system consistency or accessibility gains achieved.
+    # Documentation Completeness PR Summary
+
+    ## 📚 Documentation Quality Assessment
+    - **API Documentation**: Endpoint documentation, schema definitions, examples
+    - **Code Documentation**: Inline comments, docstrings, architecture notes
+    - **User Guides**: Setup instructions, tutorials, troubleshooting guides
+    - **Developer Documentation**: Contributing guides, development setup, deployment
+    - **Changelog Updates**: Version notes, breaking changes, migration guides
+
+    ### 📋 Documentation Coverage Table
+    | Documentation Type | Coverage | Quality | Completeness | Status |
+    |--------------------|----------|---------|--------------|---------|
+    | API Endpoints | 95% | High | Complete | ✅ |
+    | Code Comments | 78% | Medium | Good | ⚠️ |
+    | User Guides | 85% | High | Good | ✅ |
+    | Setup Instructions | 100% | High | Complete | ✅ |
+    | Troubleshooting | 65% | Medium | Needs work | ❌ |
+
+    ### 📝 Documentation Updates Table
+    | Document | Change Type | Description | Impact |
+    |----------|-------------|-------------|--------|
+    | API.md | New | Added authentication guide | High |
+    | README.md | Updated | Installation steps | Medium |
+    | CHANGELOG.md | Updated | v2.1.0 release notes | High |
+
+    Focus on documentation accuracy, completeness, and user experience.
+
+  auto_review:
+    enabled: true
+
+chat:
+  auto_reply: true

@@ -2,7 +2,7 @@
 const { Pool } = require('pg');
 const { promisify } = require('util');
 
-// Base Database Connection Manager
+// Base Database Connection
 class DatabaseConnection {
   constructor(config) {
     this.pool = new Pool(config);

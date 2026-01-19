@@ -46,6 +46,23 @@ reviews:
 
     Focus on measurable performance gains, optimization techniques used, and any trade-offs made.
 
+    ## 📋 Required Summary Table
+    **IMPORTANT**: Always generate a comprehensive summary table at the end of your analysis using this format:
+
+    ### 📊 Refactoring PR Summary Table
+    | Aspect | Status | Details | Impact | Next Steps |
+    |--------|--------|---------|--------|------------|
+    | Code Quality | ✅ Improved | Reduced cyclomatic complexity from 15 to 8 | Higher maintainability | Monitor code metrics |
+    | Performance | ✅ Enhanced | 40% faster execution, reduced memory usage | Better user experience | Load test in production |
+    | Architecture | ✅ Restructured | Extracted service layer, improved separation | Cleaner dependencies | Document patterns |
+    | Test Coverage | ✅ Maintained | All tests passing, coverage at 95% | Confidence in changes | Add integration tests |
+    | Documentation | ✅ Updated | Refreshed API docs and code comments | Better developer experience | Team training session |
+    | Breaking Changes | ✅ None | Maintained API compatibility | Smooth deployment | Continue monitoring |
+    | Technical Debt | ✅ Reduced | Removed 3 code smells, improved naming | Long-term maintainability | Regular debt assessment |
+    | Dependencies | ⚠️ Minor Changes | Updated 2 dev dependencies | Minimal risk | Security scan passed |
+
+    This summary table ensures all critical refactoring aspects are documented and reviewed systematically.
+
   auto_review:
     enabled: true
   tools:
